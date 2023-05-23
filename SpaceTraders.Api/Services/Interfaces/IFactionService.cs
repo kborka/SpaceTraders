@@ -1,8 +1,8 @@
-﻿using SpaceTraders.Api.Models.Factions.Faction;
+﻿using SpaceTraders.Api.Models.Interfaces.Factions;
 
 namespace SpaceTraders.Api.Services.Interfaces;
 
 public interface IFactionService
 {
-    Task<IEnumerable<Faction>?> GetFactions();
+    Task<IEnumerable<IFaction>?> GetFactions();
 }

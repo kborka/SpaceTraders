@@ -1,5 +1,7 @@
-﻿namespace SpaceTraders.Api.Models.Systems;
+﻿using SpaceTraders.Api.Models.Interfaces.Systems;
 
-public class SystemFaction : SymbolModelBase
+namespace SpaceTraders.Api.Models.Systems;
+
+public class SystemFaction : SymbolModelBase, ISystemFaction
 {
 }

@@ -1,8 +1,8 @@
-﻿using SpaceTraders.Api.Models;
+﻿using SpaceTraders.Api.Models.Interfaces;
 
 namespace SpaceTraders.Api.Services.Interfaces;
 
 public interface IAgentService
 {
-    Task<Agent?> GetAgent();
+    Task<IAgent?> GetAgent();
 }

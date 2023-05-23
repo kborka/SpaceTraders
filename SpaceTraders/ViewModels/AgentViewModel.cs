@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using Prism.Mvvm;
-using SpaceTraders.Api.Models;
+using SpaceTraders.Api.Models.Interfaces;
 using SpaceTraders.Api.Services.Interfaces;
 using SpaceTraders.ComponentModel;
 using SpaceTraders.ComponentModel.Interfaces;
@@ -9,10 +9,10 @@ namespace SpaceTraders.ViewModels;
 
 public class AgentViewModel : BindableBase
 {
-    private readonly NotifyTaskCompletion<Agent?> _agent;
+    private readonly NotifyTaskCompletion<IAgent?> _agent;
     public AgentViewModel(IAgentService agentService)
     {
-        _agent = new NotifyTaskCompletion<Agent?>(agentService.GetAgent());
+        _agent = new NotifyTaskCompletion<IAgent?>(agentService.GetAgent());
         _agent.PropertyChanged += AgentTask_PropertyChanged;
     }
 

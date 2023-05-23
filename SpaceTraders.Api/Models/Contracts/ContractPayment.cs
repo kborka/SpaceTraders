@@ -1,6 +1,8 @@
-﻿namespace SpaceTraders.Api.Models.Contracts;
+﻿using SpaceTraders.Api.Models.Interfaces.Contracts;
 
-public class ContractPayment
+namespace SpaceTraders.Api.Models.Contracts;
+
+public class ContractPayment : IContractPayment
 {
     /// <summary>
     ///     The amount of credits received up front for accepting the contract.

@@ -1,6 +1,8 @@
-﻿namespace SpaceTraders.Api.Models.Ships;
+﻿using SpaceTraders.Api.Models.Interfaces.Ships;
 
-public class ShipCargo
+namespace SpaceTraders.Api.Models.Ships;
+
+public class ShipCargo : IShipCargo
 {
     /// <summary>
     ///     The max number of items that can be stored in the cargo hold.
@@ -15,5 +17,5 @@ public class ShipCargo
     /// <summary>
     ///     The items currently in the cargo hold.
     /// </summary>
-    public IEnumerable<ShipCargoItem> Inventory { get; set; } = null!;
+    public IEnumerable<IShipCargoItem> Inventory { get; set; } = null!;
 }

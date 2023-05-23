@@ -1,9 +1,11 @@
-﻿namespace SpaceTraders.Api.Models.Contracts;
+﻿using SpaceTraders.Api.Models.Interfaces.Contracts;
+
+namespace SpaceTraders.Api.Models.Contracts;
 
 /// <summary>
 ///     The details of the delivery contract. Includes the type of good, units needed, and the destination.
 /// </summary>
-public class ContractDeliverGood
+public class ContractDeliverGood : IContractDeliverGood
 {
     /// <summary>
     ///     The symbol of the trade good to deliver.

@@ -1,6 +1,8 @@
-﻿namespace SpaceTraders.Api.Models.Game;
+﻿using SpaceTraders.Api.Models.Interfaces.Game;
 
-public class GameRegistrationRequest : SymbolModelBase
+namespace SpaceTraders.Api.Models.Game;
+
+public class GameRegistrationRequest : SymbolModelBase, IGameRegistrationRequest
 {
     public string Faction { get; init; } = null!;
 

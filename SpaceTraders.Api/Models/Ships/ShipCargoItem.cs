@@ -1,9 +1,11 @@
-﻿namespace SpaceTraders.Api.Models.Ships;
+﻿using SpaceTraders.Api.Models.Interfaces.Ships;
+
+namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
 ///     The type of cargo item and the number of units.
 /// </summary>
-public class ShipCargoItem : SymbolModelBase
+public class ShipCargoItem : SymbolModelBase, IShipCargoItem
 {
     /// <summary>
     ///     The name of the cargo item.

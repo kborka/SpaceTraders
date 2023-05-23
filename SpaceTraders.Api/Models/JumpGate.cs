@@ -1,8 +1,10 @@
-﻿using SpaceTraders.Api.Models.Systems;
+﻿using SpaceTraders.Api.Models.Interfaces;
+using SpaceTraders.Api.Models.Interfaces.Systems;
+using SpaceTraders.Api.Models.Systems;
 
 namespace SpaceTraders.Api.Models;
 
-public class JumpGate
+public class JumpGate : IJumpGate
 {
     /// <summary>
     ///     The maximum jump range of the gate.
@@ -17,5 +19,5 @@ public class JumpGate
     /// <summary>
     ///     The systems within range of the gate that have a corresponding gate.
     /// </summary>
-    public IEnumerable<ConnectedSystem> ConnectedSystems { get; set; } = null!;
+    public IEnumerable<IConnectedSystem> ConnectedSystems { get; set; } = null!;
 }

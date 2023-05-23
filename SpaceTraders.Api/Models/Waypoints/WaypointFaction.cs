@@ -1,5 +1,7 @@
-﻿namespace SpaceTraders.Api.Models.Waypoints;
+﻿using SpaceTraders.Api.Models.Interfaces.Waypoints;
 
-public class WaypointFaction : SymbolModelBase
+namespace SpaceTraders.Api.Models.Waypoints;
+
+public class WaypointFaction : SymbolModelBase, IWaypointFaction
 {
 }

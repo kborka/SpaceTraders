@@ -1,8 +1,9 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Market;
 
 namespace SpaceTraders.Api.Models.Market;
 
-public class MarketTradeGood : SymbolModelBase
+public class MarketTradeGood : SymbolModelBase, IMarketTradeGood
 {
     /// <summary>
     ///     The typical volume flowing through the market for this type of good.

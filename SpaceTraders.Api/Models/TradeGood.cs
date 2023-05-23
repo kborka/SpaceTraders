@@ -1,8 +1,9 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces;
 
 namespace SpaceTraders.Api.Models;
 
-public class TradeGood
+public class TradeGood : ITradeGood
 {
     public TradeSymbol Symbol { get; set; }
 

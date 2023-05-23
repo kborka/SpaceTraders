@@ -2,7 +2,7 @@
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
-using SpaceTraders.Api.Models;
+using SpaceTraders.Api.Models.Data;
 using SpaceTraders.Api.Utilities;
 
 namespace SpaceTraders.Api.Services;

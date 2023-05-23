@@ -2,7 +2,7 @@
 using Config.Net;
 using Prism.Ioc;
 using Prism.Mvvm;
-using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
 using SpaceTraders.ComponentModel;
 using SpaceTraders.ComponentModel.Interfaces;
@@ -15,7 +15,7 @@ public class MainWindowViewModel : BindableBase
 {
     private bool _hasInitialData;
     private BindableBase? _selectedViewModel;
-    private NotifyTaskCompletion<GameStatus?> _gameStatus;
+    private NotifyTaskCompletion<IGameStatus?> _gameStatus;
     private readonly IConnectionSettings _settings;
     private readonly IGameService _gameService;
 
@@ -23,7 +23,7 @@ public class MainWindowViewModel : BindableBase
     {
         _gameService = gameService;
         _settings = new ConfigurationBuilder<IConnectionSettings>().UseAppConfig().Build();
-        _gameStatus = new NotifyTaskCompletion<GameStatus?>(gameService.GetStatus());
+        _gameStatus = new NotifyTaskCompletion<IGameStatus?>(gameService.GetStatus());
         _gameStatus.PropertyChanged += GameStatusOnPropertyChanged;
     }
 

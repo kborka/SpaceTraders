@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
 
 namespace SpaceTraders.Api.Services;
@@ -10,7 +11,7 @@ public class GameService : ServiceBase, IGameService
     {
     }
 
-    public async Task<GameStatus?> GetStatus()
+    public async Task<IGameStatus?> GetStatus()
     {
         try
         {
@@ -25,7 +26,7 @@ public class GameService : ServiceBase, IGameService
         return null;
     }
 
-    public async Task<GameRegistrationResponse?> RegisterAgent(GameRegistrationRequest registrationRequest)
+    public async Task<IGameRegistrationResponse?> RegisterAgent(IGameRegistrationRequest registrationRequest)
     {
         try
         {

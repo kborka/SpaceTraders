@@ -1,9 +1,11 @@
-﻿namespace SpaceTraders.Api.Models.Ships;
+﻿using SpaceTraders.Api.Models.Interfaces.Ships;
+
+namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
 ///     Details of the ship's fuel tanks including how much fuel was consumed during the last transit or action
 /// </summary>
-public class ShipFuel
+public class ShipFuel : IShipFuel
 {
     /// <summary>
     ///     The current amount of fuel in the ship's tanks.
@@ -15,10 +17,10 @@ public class ShipFuel
     /// </summary>
     public uint Capacity { get; set; }
 
-    public ConsumedFuel? Consumed { get; set; }
+    public IConsumedFuel? Consumed { get; set; }
 }
 
-public class ConsumedFuel
+public class ConsumedFuel : IConsumedFuel
 {
     /// <summary>
     ///     The amount of fuel consumed by the most recent transit or action.

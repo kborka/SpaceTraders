@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Prism.Mvvm;
 using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.ViewModels.Game;
 
 public class GameStatusViewModel : BindableBase
 {
-    private readonly GameStatus _status;
+    private readonly IGameStatus _status;
 
-    public GameStatusViewModel(GameStatus status)
+    public GameStatusViewModel(IGameStatus status)
     {
         _status = status;
         Stats = new GameStatsViewModel(_status.Stats);

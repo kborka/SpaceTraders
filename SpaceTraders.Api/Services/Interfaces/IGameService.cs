@@ -1,4 +1,5 @@
 ﻿using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.Api.Services.Interfaces;
 
@@ -13,7 +14,7 @@ public interface IGameService
     /// <returns>
     ///     A <see cref="GameStatus" /> object containing the current status, announcements, and leaderboards.
     /// </returns>
-    Task<GameStatus?> GetStatus();
+    Task<IGameStatus?> GetStatus();
 
     /// <summary>
     ///     Registers an agent with the given <see cref="GameRegistrationRequest" /> information.
@@ -25,5 +26,5 @@ public interface IGameService
     ///     A <see cref="GameRegistrationResponse" /> containing the agent's authorization token,
     ///     ship information, faction information, and contract information.
     /// </returns>
-    Task<GameRegistrationResponse?> RegisterAgent(GameRegistrationRequest registrationRequest);
+    Task<IGameRegistrationResponse?> RegisterAgent(IGameRegistrationRequest registrationRequest);
 }

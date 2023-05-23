@@ -1,4 +1,5 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Surveying;
 
 namespace SpaceTraders.Api.Models.Surveys;
 
@@ -6,7 +7,7 @@ namespace SpaceTraders.Api.Models.Surveys;
 ///     A resource survey of a waypoint, detailing a specific extraction location and the types of resources that can be
 ///     found there.
 /// </summary>
-public class Survey : SymbolModelBase
+public class Survey : SymbolModelBase, ISurvey
 {
     /// <summary>
     ///     A unique signature for the location of this survey.
@@ -17,7 +18,7 @@ public class Survey : SymbolModelBase
     /// <summary>
     ///     A list of deposits that can be found at this location.
     /// </summary>
-    public IEnumerable<SurveyDeposit> Deposits { get; set; } = null!;
+    public IEnumerable<ISurveyDeposit> Deposits { get; set; } = null!;
 
     /// <summary>
     ///     The date and time when the survey expires.

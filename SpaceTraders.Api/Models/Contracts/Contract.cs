@@ -1,8 +1,9 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Contracts;
 
 namespace SpaceTraders.Api.Models.Contracts;
 
-public class Contract
+public class Contract : IContract
 {
     public string Id { get; set; } = null!;
 
@@ -13,7 +14,7 @@ public class Contract
 
     public ContractType Type { get; set; }
 
-    public ContractTerms Terms { get; set; } = null!;
+    public IContractTerms Terms { get; set; } = null!;
 
     /// <summary>
     ///     Whether the contract has been accepted by the agent.

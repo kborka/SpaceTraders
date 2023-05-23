@@ -1,9 +1,10 @@
 ﻿using SpaceTraders.Api.Enums;
-using SpaceTraders.Api.Models.Ships;
+using SpaceTraders.Api.Models.Interfaces.Ships;
+using SpaceTraders.Api.Models.Interfaces.Shipyards;
 
 namespace SpaceTraders.Api.Models.Shipyards;
 
-public class ShipyardShip
+public class ShipyardShip : IShipyardShip
 {
     public ShipType Type { get; set; }
 
@@ -13,13 +14,13 @@ public class ShipyardShip
 
     public int PurchasePrice { get; set; }
 
-    public ShipFrame Frame { get; set; } = null!;
+    public IShipFrame Frame { get; set; } = null!;
 
-    public ShipReactor Reactor { get; set; } = null!;
+    public IShipReactor Reactor { get; set; } = null!;
 
-    public ShipEngine Engine { get; set; } = null!;
+    public IShipEngine Engine { get; set; } = null!;
 
-    public IEnumerable<ShipModule> Modules { get; set; } = null!;
+    public IEnumerable<IShipModule> Modules { get; set; } = null!;
 
-    public IEnumerable<ShipMount> Mounts { get; set; } = null!;
+    public IEnumerable<IShipMount> Mounts { get; set; } = null!;
 }

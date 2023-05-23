@@ -1,21 +1,21 @@
 ﻿using SpaceTraders.Api.Enums;
 
-namespace SpaceTraders.Api.Models.Factions.Faction;
+namespace SpaceTraders.Api.Models.Interfaces.Factions;
 
-public class FactionTrait
+public interface IFactionTrait
 {
     /// <summary>
     ///     The unique identifier of the trait.
     /// </summary>
-    public FactionTraitType Symbol { get; set; }
+    FactionTraitType Symbol { get; set; }
 
     /// <summary>
     ///     The name of the trait.
     /// </summary>
-    public string Name { get; set; } = null!;
+    string Name { get; set; }
 
     /// <summary>
     ///     A description of the trait.
     /// </summary>
-    public string Description { get; set; } = null!;
+    string Description { get; set; }
 }

@@ -1,12 +1,12 @@
 ﻿using Prism.Mvvm;
-using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.ViewModels.Game;
 
 namespace SpaceTraders.ViewModels;
 
 public class StartViewModel : BindableBase
 {
-    public StartViewModel(GameStatus gameStatus)
+    public StartViewModel(IGameStatus gameStatus)
     {
 
         GameStatus = new GameStatusViewModel(gameStatus);

@@ -1,12 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.Api.Models.Game;
 
-public class GameLink
+public class GameLink : IGameLink
 {
-    [JsonRequired]
     public string Name { get; set; } = null!;
 
-    [JsonRequired]
     public string Url { get; set; } = null!;
 }

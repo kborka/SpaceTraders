@@ -1,12 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.Api.Models.Game;
 
-public class GameAnnouncement
+public class GameAnnouncement : IGameAnnouncement
 {
-    [JsonRequired]
     public string Title { get; set; } = null!;
 
-    [JsonRequired]
     public string Body { get; set; } = null!;
 }

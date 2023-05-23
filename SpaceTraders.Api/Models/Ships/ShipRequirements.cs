@@ -1,9 +1,11 @@
-﻿namespace SpaceTraders.Api.Models.Ships;
+﻿using SpaceTraders.Api.Models.Interfaces.Ships;
+
+namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
 ///     The requirements for installation on a ship.
 /// </summary>
-public class ShipRequirements
+public class ShipRequirements : IShipRequirements
 {
     /// <summary>
     ///     The amount of power required from the reactor.

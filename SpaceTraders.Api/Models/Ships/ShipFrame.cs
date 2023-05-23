@@ -1,4 +1,5 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
@@ -7,13 +8,13 @@ namespace SpaceTraders.Api.Models.Ships;
 ///     as well as base fuel capacity. As the condition of the frame takes more wear, the ship will become
 ///     more sluggish and less maneuverable.
 /// </summary>
-public class ShipFrame
+public class ShipFrame : IShipFrame
 {
     public FrameType Symbol { get; set; }
 
     public string Name { get; set; } = null!;
 
-    public string Descrption { get; set; } = null!;
+    public string Description { get; set; } = null!;
 
     public uint ModuleSlots { get; set; }
 
@@ -21,5 +22,5 @@ public class ShipFrame
 
     public uint FuelCapacity { get; set; }
 
-    public ShipRequirements Requirements { get; set; } = null!;
+    public IShipRequirements Requirements { get; set; } = null!;
 }

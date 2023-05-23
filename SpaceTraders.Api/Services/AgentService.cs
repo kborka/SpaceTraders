@@ -1,4 +1,5 @@
 ﻿using SpaceTraders.Api.Models;
+using SpaceTraders.Api.Models.Interfaces;
 using SpaceTraders.Api.Services.Interfaces;
 
 namespace SpaceTraders.Api.Services;
@@ -9,7 +10,7 @@ public class AgentService : ServiceBase, IAgentService
     {
     }
 
-    public async Task<Agent?> GetAgent()
+    public async Task<IAgent?> GetAgent()
     {
         try
         {

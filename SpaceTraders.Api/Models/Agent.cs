@@ -1,6 +1,8 @@
-﻿namespace SpaceTraders.Api.Models;
+﻿using SpaceTraders.Api.Models.Interfaces;
 
-public class Agent : SymbolModelBase
+namespace SpaceTraders.Api.Models;
+
+public class Agent : SymbolModelBase, IAgent
 {
     public string AccountId { get; set; } = null!;
 

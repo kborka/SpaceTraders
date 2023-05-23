@@ -1,4 +1,5 @@
-﻿using SpaceTraders.Api.Models.Factions.Faction;
+﻿using SpaceTraders.Api.Models.Factions;
+using SpaceTraders.Api.Models.Interfaces.Factions;
 using SpaceTraders.Api.Services.Interfaces;
 
 namespace SpaceTraders.Api.Services;
@@ -9,7 +10,7 @@ public class FactionService : ServiceBase, IFactionService
     {
     }
 
-    public async Task<IEnumerable<Faction>?> GetFactions()
+    public async Task<IEnumerable<IFaction>?> GetFactions()
     {
         try
         {

@@ -1,8 +1,9 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
-public class ShipModule : SymbolModelBase
+public class ShipModule : SymbolModelBase, IShipModule
 {
     public ModuleType Type { get; set; }
 
@@ -14,5 +15,5 @@ public class ShipModule : SymbolModelBase
 
     public string? Description { get; set; }
 
-    public ShipRequirements Requirements { get; set; } = null!;
+    public IShipRequirements Requirements { get; set; } = null!;
 }

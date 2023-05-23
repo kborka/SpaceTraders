@@ -1,11 +1,12 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
 ///     The public registration information of the ship.
 /// </summary>
-public class ShipRegistration
+public class ShipRegistration : IShipRegistration
 {
     /// <summary>
     ///     The agent's register name of the ship.

@@ -1,6 +1,8 @@
-﻿namespace SpaceTraders.Api.Models.Shipyards;
+﻿using SpaceTraders.Api.Models.Interfaces.Shipyards;
 
-public class ShipyardTransaction
+namespace SpaceTraders.Api.Models.Shipyards;
+
+public class ShipyardTransaction : IShipyardTransaction
 {
     /// <summary>
     ///     The symbol of the waypoint where the transaction took place.

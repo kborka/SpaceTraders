@@ -1,12 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.Api.Models.Game;
 
-public class GameLeaderBoard
+public class GameLeaderboard : IGameLeaderboard
 {
-    [JsonRequired]
     public IEnumerable<Agent> MostCredits { get; set; } = null!;
 
-    [JsonRequired]
     public IEnumerable<Agent> MostSubmittedCharts { get; set; } = null!;
 }

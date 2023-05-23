@@ -1,9 +1,11 @@
-﻿namespace SpaceTraders.Api.Models;
+﻿using SpaceTraders.Api.Models.Interfaces;
+
+namespace SpaceTraders.Api.Models;
 
 /// <summary>
 ///     A cooldown is a period of time in which a ship cannot perform certain actions.
 /// </summary>
-public class Cooldown
+public class Cooldown : ICooldown
 {
     /// <summary>
     ///     The symbol of the ship that is on cooldown.

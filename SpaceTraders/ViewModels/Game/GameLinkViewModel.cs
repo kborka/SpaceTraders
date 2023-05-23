@@ -1,11 +1,11 @@
 ﻿using Prism.Mvvm;
-using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.ViewModels.Game;
 
 public class GameLinkViewModel : BindableBase
 {
-    public GameLinkViewModel(GameLink link)
+    public GameLinkViewModel(IGameLink link)
     {
         Name = link.Name;
         Url = link.Url;

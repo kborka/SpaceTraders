@@ -1,11 +1,11 @@
 ﻿using Prism.Mvvm;
-using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.ViewModels.Game;
 
 public class GameAnnouncementViewModel : BindableBase
 {
-    public GameAnnouncementViewModel(GameAnnouncement announcement)
+    public GameAnnouncementViewModel(IGameAnnouncement announcement)
     {
         Title = announcement.Title;
         Body = announcement.Body;

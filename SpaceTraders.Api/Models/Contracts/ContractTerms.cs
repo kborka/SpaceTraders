@@ -1,13 +1,15 @@
-﻿namespace SpaceTraders.Api.Models.Contracts;
+﻿using SpaceTraders.Api.Models.Interfaces.Contracts;
 
-public class ContractTerms
+namespace SpaceTraders.Api.Models.Contracts;
+
+public class ContractTerms : IContractTerms
 {
     /// <summary>
     ///     The deadline for the contract.
     /// </summary>
     public DateTime Deadline { get; set; }
 
-    public ContractPayment Payment { get; set; } = null!;
+    public IContractPayment Payment { get; set; } = null!;
 
-    public IEnumerable<ContractDeliverGood>? Deliver { get; set; }
+    public IEnumerable<IContractDeliverGood>? Deliver { get; set; }
 }

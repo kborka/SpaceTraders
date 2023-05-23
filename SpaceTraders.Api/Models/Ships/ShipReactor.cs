@@ -1,14 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
 ///     The reactor of the ship. The reactor is responsible for powering the ship's systems and weapons.
 /// </summary>
-public class ShipReactor
+public class ShipReactor : IShipReactor
 {
-    [JsonPropertyName("symbol")] public ReactorType Type { get; set; }
+    public ReactorType Type { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -18,5 +19,5 @@ public class ShipReactor
 
     public uint PowerOutput { get; set; }
 
-    public ShipRequirements Requirements { get; set; } = null!;
+    public IShipRequirements Requirements { get; set; } = null!;
 }

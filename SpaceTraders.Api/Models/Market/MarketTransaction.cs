@@ -1,8 +1,9 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Market;
 
 namespace SpaceTraders.Api.Models.Market;
 
-public class MarketTransaction
+public class MarketTransaction : IMarketTransaction
 {
     /// <summary>
     ///     The symbol of the waypoint where the transaction took place.

@@ -1,8 +1,9 @@
 ﻿using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
-public class ShipCrew
+public class ShipCrew : IShipCrew
 {
     /// <summary>
     ///     The current number of crew members on the ship.

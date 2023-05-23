@@ -1,11 +1,11 @@
 ﻿using Prism.Mvvm;
-using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.ViewModels.Game;
 
 public class GameStatsViewModel : BindableBase
 {
-    public GameStatsViewModel(GameStats stats)
+    public GameStatsViewModel(IGameStats stats)
     {
         AgentCount = stats.AgentCount;
         ShipCount = stats.ShipCount;
