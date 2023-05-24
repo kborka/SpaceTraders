@@ -1,7 +1,5 @@
 ﻿using SpaceTraders.Api.Models.Interfaces;
 using SpaceTraders.Api.Models.Interfaces.Systems;
-using SpaceTraders.Api.Models.Systems;
-
 namespace SpaceTraders.Api.Models;
 
 public class JumpGate : IJumpGate

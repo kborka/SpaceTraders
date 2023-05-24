@@ -1,67 +1,41 @@
-﻿using System.ComponentModel;
-using Config.Net;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using Prism.Ioc;
 using Prism.Mvvm;
-using SpaceTraders.Api.Models.Interfaces.Game;
-using SpaceTraders.Api.Services.Interfaces;
 using SpaceTraders.ComponentModel;
-using SpaceTraders.ComponentModel.Interfaces;
-using SpaceTraders.Interfaces;
 using SpaceTraders.Utilities;
 
 namespace SpaceTraders.ViewModels;
 
 public class MainWindowViewModel : BindableBase
 {
-    private bool _hasInitialData;
+    private bool _dataLoaded;
     private BindableBase? _selectedViewModel;
-    private NotifyTaskCompletion<IGameStatus?> _gameStatus;
-    private readonly IConnectionSettings _settings;
-    private readonly IGameService _gameService;
 
-    public MainWindowViewModel(IGameService gameService)
+    public MainWindowViewModel()
     {
-        _gameService = gameService;
-        _settings = new ConfigurationBuilder<IConnectionSettings>().UseAppConfig().Build();
-        _gameStatus = new NotifyTaskCompletion<IGameStatus?>(gameService.GetStatus());
-        _gameStatus.PropertyChanged += GameStatusOnPropertyChanged;
+        InitializeCommand = new AsyncCommand(Initialize);
     }
 
-    public bool HasInitialData
+    public ICommand InitializeCommand { get; }
+
+    public bool DataLoaded
     {
-        get => _hasInitialData;
-        set => this.SetProperty(ref _hasInitialData, value);
+        get => _dataLoaded;
+        set => SetProperty(ref _dataLoaded, value);
     }
 
     public BindableBase? SelectedViewModel
     {
         get => _selectedViewModel;
-        set => this.SetProperty(ref _selectedViewModel, value);
+        private set => this.SetProperty(ref _selectedViewModel, value);
     }
 
-    private void GameStatusOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    private async Task Initialize()
     {
-
-        switch (e.PropertyName)
-        {
-            case nameof(INotifyTaskCompletion.IsCompletedSuccessfully):
-            {
-                HasInitialData = true;
-
-                if (_settings.LastServerReset is null || _gameStatus.Result?.LastResetDate >= _settings.LastServerReset)
-                {
-                    _settings.LastServerReset = _gameStatus.Result?.LastResetDate;
-                    _settings.AgentAuthToken = null;
-                    SelectedViewModel = new StartViewModel(_gameStatus.Result);
-                }
-                else
-                {
-                    SelectedViewModel = AppNexus.ApplicationContainer.Resolve<MainViewModel>();
-                }
-
-                break;
-            }
-        }
+        var startVm = AppNexus.ApplicationContainer.Resolve<StartViewModel>();
+        await startVm.Initialization;
+        SelectedViewModel = startVm;
+        DataLoaded = true;
     }
-
 }

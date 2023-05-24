@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using SpaceTraders.Api.Enums;
+﻿using SpaceTraders.Api.Enums;
 using SpaceTraders.Api.Models.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;

@@ -1,6 +1,4 @@
-﻿using SpaceTraders.Api.Models.Interfaces;
-
-namespace SpaceTraders.Api.Models.Interfaces.Extractions;
+﻿namespace SpaceTraders.Api.Models.Interfaces.Extractions;
 
 public interface IExtractionYield : ISymbolModel
 {

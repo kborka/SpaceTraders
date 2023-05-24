@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace SpaceTraders.Api.Models.Interfaces.Game;
+﻿namespace SpaceTraders.Api.Models.Interfaces.Game;
 
 public interface IGameAnnouncement
 {

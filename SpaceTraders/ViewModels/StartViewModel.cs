@@ -1,16 +1,75 @@
-﻿using Prism.Mvvm;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Prism.Mvvm;
 using SpaceTraders.Api.Models.Interfaces.Game;
+using SpaceTraders.Api.Services.Interfaces;
+using SpaceTraders.Interfaces;
 using SpaceTraders.ViewModels.Game;
 
 namespace SpaceTraders.ViewModels;
 
-public class StartViewModel : BindableBase
+public class StartViewModel : BindableBase, IAsyncInitialization
 {
-    public StartViewModel(IGameStatus gameStatus)
-    {
+    private IGameStatus? _status;
+    private readonly IGameService _gameService;
+    private GameStatsViewModel? _gameStats;
+    private GameServerResetViewModel? _serverReset;
 
-        GameStatus = new GameStatusViewModel(gameStatus);
+    public StartViewModel(IGameService gameService)
+    {
+        _gameService = gameService;
+        Initialization = InitializeAsync();
+        Announcements = new ObservableCollection<GameAnnouncementViewModel>();
+        Links = new ObservableCollection<GameLinkViewModel>();
     }
 
-    public GameStatusViewModel GameStatus { get; }
+    public Task<bool> Initialization { get; }
+
+    public string? Status => _status?.Status;
+
+    public string? Version => _status?.Version;
+
+    public DateTime? LastResetDate => _status?.LastResetDate;
+
+    public string? Description => _status?.Description;
+
+    public GameStatsViewModel? Stats
+    {
+        get => _gameStats;
+        private set => SetProperty(ref _gameStats, value);
+    }
+
+    public GameServerResetViewModel? NextServerReset
+    {
+        get => _serverReset;
+        private set => SetProperty(ref _serverReset, value);
+    }
+
+    public ObservableCollection<GameAnnouncementViewModel> Announcements { get; }
+
+    public ObservableCollection<GameLinkViewModel> Links { get; }
+
+    private async Task<bool> InitializeAsync()
+    {
+        _status= await _gameService.GetStatus();
+        if (_status is null) return false;
+
+        RaisePropertyChanged(nameof(Description));
+        Stats = new GameStatsViewModel(_status.Stats);
+        NextServerReset = new GameServerResetViewModel(_status.NextServerReset);
+
+        foreach (var announcement in _status.Announcements)
+        {
+            Announcements.Add(new GameAnnouncementViewModel(announcement));
+        }
+
+        foreach (var link in _status.Links)
+        {
+            Links.Add(new GameLinkViewModel(link));
+        }
+
+        return true;
+    }
+
 }

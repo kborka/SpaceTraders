@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
-using System.Text.Json;
 using System.Windows;
 using DryIoc.Microsoft.DependencyInjection.Extension;
 using Prism.DryIoc;
@@ -41,9 +40,9 @@ namespace SpaceTraders
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(viewType =>
             {
                 var viewName = viewType.FullName;
-                viewName = viewName.Replace(".Views.", ".ViewModels.");
+                viewName = viewName?.Replace(".Views.", ".ViewModels.");
                 var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
-                var suffix = viewName.EndsWith("View") ? "Model" : "ViewModel";
+                var suffix = viewName?.EndsWith("View") ?? false ? "Model" : "ViewModel";
                 var viewModelName = String.Format(CultureInfo.InvariantCulture, "{0}{1}", viewName, suffix);
 
                 var assembly = viewType.GetTypeInfo().Assembly;
