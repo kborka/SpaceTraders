@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
+using SpaceTraders.ViewModels.Game;
 
 namespace SpaceTraders.Views;
 
@@ -10,9 +14,17 @@ public partial class StartView
         InitializeComponent();
     }
 
-    private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
     {
-        Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+        var url = ((GameLinkViewModel)(((Button)sender).DataContext)).Url;
+        var uri = new Uri(url);
+        var processStartInfo = new ProcessStartInfo(uri.AbsoluteUri)
+        {
+            UseShellExecute = true
+        };
+
+        Process.Start(processStartInfo);
+
         e.Handled = true;
     }
 }

@@ -2,7 +2,7 @@
 
 public interface IGameLeaderboard
 {
-    IEnumerable<Agent> MostCredits { get; set; }
+    IEnumerable<ILeaderboardValue> MostCredits { get; set; }
 
-    IEnumerable<Agent> MostSubmittedCharts { get; set; }
+    IEnumerable<ILeaderboardValue> MostSubmittedCharts { get; set; }
 }

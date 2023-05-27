@@ -9,12 +9,13 @@ using SpaceTraders.ViewModels.Game;
 
 namespace SpaceTraders.ViewModels;
 
-public class StartViewModel : BindableBase, IAsyncInitialization
+public sealed class StartViewModel : BindableBase, IAsyncInitialization
 {
     private IGameStatus? _status;
     private readonly IGameService _gameService;
     private GameStatsViewModel? _gameStats;
     private GameServerResetViewModel? _serverReset;
+    private GameLeaderboardViewModel? _leaderboard;
 
     public StartViewModel(IGameService gameService)
     {
@@ -46,6 +47,12 @@ public class StartViewModel : BindableBase, IAsyncInitialization
         private set => SetProperty(ref _serverReset, value);
     }
 
+    public GameLeaderboardViewModel? Leaderboard
+    {
+        get => _leaderboard;
+        set => SetProperty(ref _leaderboard, value);
+    }
+
     public ObservableCollection<GameAnnouncementViewModel> Announcements { get; }
 
     public ObservableCollection<GameLinkViewModel> Links { get; }
@@ -58,6 +65,7 @@ public class StartViewModel : BindableBase, IAsyncInitialization
         RaisePropertyChanged(nameof(Description));
         Stats = new GameStatsViewModel(_status.Stats);
         NextServerReset = new GameServerResetViewModel(_status.NextServerReset);
+        Leaderboard = new GameLeaderboardViewModel(_status.Leaderboards);
 
         foreach (var announcement in _status.Announcements)
         {
