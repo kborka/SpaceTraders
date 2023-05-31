@@ -68,8 +68,5 @@ public class AsyncCommand : IAsyncCommand
       return !_isExecuting && (_canExecute?.Invoke() ?? true);
    }
 
-   public void RaiseCanExecuteChanged()
-   {
-      CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-   }
+   public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 }

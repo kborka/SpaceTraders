@@ -309,6 +309,7 @@
 
             <Button Grid.Column="0"
                     VerticalAlignment="Center"
+                    Command="{Binding OpenRegistrationDialogCommand}"
                     Style="{StaticResource MaterialDesignOutlinedLightButton}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="AccountPlus" />

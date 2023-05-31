@@ -1,5 +1,4 @@
 ﻿using Prism.Mvvm;
-using SpaceTraders.Api.Models.Game;
 using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.ViewModels.Game;

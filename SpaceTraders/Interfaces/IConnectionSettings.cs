@@ -6,7 +6,11 @@ namespace SpaceTraders.Interfaces;
 
 public interface IConnectionSettings
 {
-    IEnumerable<IAgentInfo> ActiveAgents { get; set; }
+    string? AgentToken { get; set; }
+
+    string? AgentSymbol { get; set; }
+
+    int? AgentCredits { get; set; }
 
     DateTime? LastServerReset { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces.Data;
 using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.Api.Services.Interfaces;
@@ -26,5 +27,5 @@ public interface IGameService
     ///     A <see cref="GameRegistrationResponse" /> containing the agent's authorization token,
     ///     ship information, faction information, and contract information.
     /// </returns>
-    Task<IGameRegistrationResponse?> RegisterAgent(IGameRegistrationRequest registrationRequest);
+    Task<IRequestData<IGameRegistrationResponse?>?> RegisterAgent(IGameRegistrationRequest registrationRequest);
 }

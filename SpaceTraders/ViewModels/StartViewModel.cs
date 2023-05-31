@@ -1,29 +1,44 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
+using Config.Net;
+using MaterialDesignThemes.Wpf;
+using Prism.Ioc;
 using Prism.Mvvm;
+using SpaceTraders.Api;
 using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
+using SpaceTraders.ComponentModel;
+using SpaceTraders.ComponentModel.Interfaces;
 using SpaceTraders.Interfaces;
+using SpaceTraders.Utilities;
+using SpaceTraders.ViewModels.Dialogs;
 using SpaceTraders.ViewModels.Game;
+using SpaceTraders.Views.Dialogs;
 
 namespace SpaceTraders.ViewModels;
 
 public sealed class StartViewModel : BindableBase, IAsyncInitialization
 {
-    private IGameStatus? _status;
+    private readonly IConnectionSettings _settings;
     private readonly IGameService _gameService;
+    private IGameStatus? _status;
     private GameStatsViewModel? _gameStats;
     private GameServerResetViewModel? _serverReset;
     private GameLeaderboardViewModel? _leaderboard;
 
     public StartViewModel(IGameService gameService)
     {
+        _settings = new ConfigurationBuilder<IConnectionSettings>().UseJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}\\Settings.json").Build();
         _gameService = gameService;
         Initialization = InitializeAsync();
         Announcements = new ObservableCollection<GameAnnouncementViewModel>();
         Links = new ObservableCollection<GameLinkViewModel>();
+        OpenRegistrationDialogCommand = new AsyncCommand(OpenRegistrationDialog);
     }
+
+    public event EventHandler<IGameRegistrationResponse> NewAgentRegistered;
 
     public Task<bool> Initialization { get; }
 
@@ -57,6 +72,8 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
 
     public ObservableCollection<GameLinkViewModel> Links { get; }
 
+    public IAsyncCommand OpenRegistrationDialogCommand { get; }
+
     private async Task<bool> InitializeAsync()
     {
         _status= await _gameService.GetStatus();
@@ -77,7 +94,45 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
             Links.Add(new GameLinkViewModel(link));
         }
 
+        if (_status.LastResetDate > (_settings.LastServerReset ?? DateTime.UnixEpoch))
+        {
+            _settings.LastServerReset = _status.LastResetDate;
+            _settings.AgentToken = null;
+        }
+
         return true;
     }
 
+    private async Task OpenRegistrationDialog()
+    {
+        var dialogVm = AppNexus.ApplicationContainer.Resolve<RegistrationDialogViewModel>();
+        var dialog = new RegistrationDialog()
+        {
+            DataContext = dialogVm
+        };
+
+        await DialogHost.Show(dialog, "RootDialog", RegistrationDialog_Closing);
+    }
+
+    private void RegistrationDialog_Closing(object? sender, DialogClosingEventArgs e)
+    {
+        var dialogResult = Convert.ToBoolean(e.Parameter);
+        if (!dialogResult)
+        {
+            return;
+        }
+
+        if (e.Session.Content is not RegistrationDialog registrationDialog) return;
+        var registrationInfo = ((RegistrationDialogViewModel)registrationDialog.DataContext).RegistrationInformation;
+        _settings.AgentToken = registrationInfo?.Token;
+        _settings.AgentSymbol = registrationInfo?.Agent.Symbol;
+        _settings.AgentCredits = registrationInfo?.Agent.Credits;
+
+        ApiNexus.AuthToken = registrationInfo?.Token;
+
+        if (registrationInfo is not null)
+        {
+            NewAgentRegistered?.Invoke(this, registrationInfo);
+        }
+    }
 }

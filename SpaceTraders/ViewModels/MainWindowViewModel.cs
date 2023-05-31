@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using Prism.Ioc;
 using Prism.Mvvm;
+using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.ComponentModel;
 using SpaceTraders.Utilities;
 
@@ -35,7 +37,20 @@ public class MainWindowViewModel : BindableBase
     {
         var startVm = AppNexus.ApplicationContainer.Resolve<StartViewModel>();
         await startVm.Initialization;
+        startVm.NewAgentRegistered += StartView_NewAgentRegistered;
         SelectedViewModel = startVm;
         DataLoaded = true;
+    }
+
+    private void StartView_NewAgentRegistered(object? sender, IGameRegistrationResponse e)
+    {
+        if (sender is not StartViewModel startVm)
+        {
+            return;
+        }
+
+        startVm.NewAgentRegistered -= StartView_NewAgentRegistered;
+
+        SelectedViewModel = new MainViewModel(e);
     }
 }

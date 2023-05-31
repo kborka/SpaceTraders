@@ -1,5 +1,7 @@
 ﻿using System.Text.Json;
 using SpaceTraders.Api.Models.Game;
+using SpaceTraders.Api.Models.Interfaces;
+using SpaceTraders.Api.Models.Interfaces.Data;
 using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
 
@@ -26,13 +28,12 @@ public class GameService : ServiceBase, IGameService
         return null;
     }
 
-    public async Task<IGameRegistrationResponse?> RegisterAgent(IGameRegistrationRequest registrationRequest)
+    public async Task<IRequestData<IGameRegistrationResponse?>?> RegisterAgent(IGameRegistrationRequest registrationRequest)
     {
         try
         {
-            var jsonRequestString = JsonSerializer.Serialize(registrationRequest);
-            var response = await PostValue<GameRegistrationResponse?>("register", jsonRequestString);
-            if (!response?.HasError ?? false) return response.Data;
+            var jsonRequestString = JsonSerializer.Serialize(registrationRequest, JsonOptions);
+            return await PostValue<IGameRegistrationResponse?>("register", jsonRequestString);
         }
         catch (Exception ex)
         {

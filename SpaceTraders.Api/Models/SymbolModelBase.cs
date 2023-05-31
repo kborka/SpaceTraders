@@ -1,4 +1,5 @@
-﻿using SpaceTraders.Api.Models.Interfaces;
+﻿using System.Text.Json.Serialization;
+using SpaceTraders.Api.Models.Interfaces;
 
 namespace SpaceTraders.Api.Models;
 
@@ -10,5 +11,6 @@ public abstract class SymbolModelBase : ISymbolModel
     /// <summary>
     ///     Gets or sets the symbol identifier.
     /// </summary>
+    [JsonRequired]
     public string Symbol { get; set; } = null!;
 }

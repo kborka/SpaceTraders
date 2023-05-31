@@ -1,12 +1,14 @@
 ﻿using System.Text.Json.Serialization;
+using SpaceTraders.Api.Enums;
+using SpaceTraders.Api.Models.Game;
 
 namespace SpaceTraders.Api.Models.Interfaces.Game;
 
+[JsonPolymorphic]
+[JsonDerivedType(typeof(GameRegistrationRequest))]
 public interface IGameRegistrationRequest : ISymbolModel
 {
-    [JsonRequired]
-    string Faction { get; init; }
+    StartingFactionType Faction { get; init; }
 
-    [JsonRequired]
     string Email { get; init; }
 }

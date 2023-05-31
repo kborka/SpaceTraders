@@ -7,4 +7,6 @@ public interface IAsyncCommand : ICommand
 {
     Task ExecuteAsync();
     bool CanExecute();
+
+    void RaiseCanExecuteChanged();
 }

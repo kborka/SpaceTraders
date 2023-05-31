@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:vm="clr-namespace:SpaceTraders.ViewModels"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -27,12 +28,15 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
+    <materialDesign:DialogHost DialogTheme="Inherit"
+                               Identifier="RootDialog">
+        <Grid>
         <ProgressBar
             IsIndeterminate="True"
             Value="0"
             Visibility="{Binding DataLoaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
             Style="{StaticResource MaterialDesignCircularProgressBar}" />
         <ContentControl Content="{Binding SelectedViewModel}" />
-    </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
 </Window>

@@ -7,6 +7,7 @@ using Prism.DryIoc;
 using Prism.Ioc;
 using Microsoft.Extensions.DependencyInjection;
 using Prism.Mvvm;
+using SpaceTraders.Api;
 using SpaceTraders.Api.Services;
 using SpaceTraders.Api.Services.Interfaces;
 using SpaceTraders.Views;
@@ -27,9 +28,12 @@ namespace SpaceTraders
         {
             containerRegistry.GetContainer().RegisterServices(services =>
             {
-                services.AddHttpClient<IAgentService, AgentService>();
-                services.AddHttpClient<IFactionService, FactionService>();
-                services.AddHttpClient<IGameService, GameService>();
+                services.AddHttpClient<IAgentService, AgentService>()
+                    .ConfigurePrimaryHttpMessageHandler(() => ApiNexus.RateLimitedHandler);
+                services.AddHttpClient<IFactionService, FactionService>()
+                    .ConfigurePrimaryHttpMessageHandler(() => ApiNexus.RateLimitedHandler);
+                services.AddHttpClient<IGameService, GameService>()
+                    .ConfigurePrimaryHttpMessageHandler(() => ApiNexus.RateLimitedHandler);
             });
         }
 

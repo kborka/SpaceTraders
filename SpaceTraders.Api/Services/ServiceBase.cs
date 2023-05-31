@@ -3,6 +3,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using SpaceTraders.Api.Models.Data;
+using SpaceTraders.Api.Models.Interfaces.Data;
 using SpaceTraders.Api.Utilities;
 
 namespace SpaceTraders.Api.Services;
@@ -10,7 +11,7 @@ namespace SpaceTraders.Api.Services;
 public abstract class ServiceBase
 {
     private readonly HttpClient _httpClient;
-    private readonly JsonSerializerOptions _jsonOptions;
+    protected readonly JsonSerializerOptions JsonOptions;
 
     protected ServiceBase(HttpClient httpClient)
     {
@@ -18,16 +19,16 @@ public abstract class ServiceBase
         _httpClient.BaseAddress = new Uri(Constants.BaseUrl);
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ApiNexus.AuthToken);
 
-        _jsonOptions = new JsonSerializerOptions()
+        JsonOptions = new JsonSerializerOptions()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true
         };
     }
 
     protected async Task<T?> GetValue<T>(string uri)
     {
         using var httpResponse = await _httpClient.GetAsync(uri, HttpCompletionOption.ResponseContentRead);
-        httpResponse.EnsureSuccessStatusCode();
 
         if (httpResponse.Content.Headers.ContentType?.MediaType != MediaTypeNames.Application.Json) return default;
 
@@ -35,7 +36,7 @@ public abstract class ServiceBase
 
         try
         {
-            return JsonSerializer.Deserialize<T>(contentStream, _jsonOptions);
+            return JsonSerializer.Deserialize<T>(contentStream, JsonOptions);
         }
         catch (Exception e)
         {
@@ -44,22 +45,22 @@ public abstract class ServiceBase
         }
     }
 
-    protected async Task<RequestData<T>?> GetRequestDataValue<T>(string uri) => await GetValue<RequestData<T>>(uri);
+    protected async Task<IRequestData<T>?> GetRequestDataValue<T>(string uri) => await GetValue<RequestData<T>>(uri);
 
-    protected async Task<RequestData<T>?> PostValue<T>(string uri, string jsonString)
+    protected async Task<IRequestData<T>?> PostValue<T>(string uri, string jsonString)
     {
         var content = new StringContent(jsonString, Encoding.UTF8, MediaTypeNames.Application.Json);
 
         try
         {
             var httpResponse = await _httpClient.PostAsync(uri, content);
-            httpResponse.EnsureSuccessStatusCode();
+
 
             if (httpResponse.Content.Headers.ContentType?.MediaType != MediaTypeNames.Application.Json)
                 return default;
 
             var contentStream = await httpResponse.Content.ReadAsStreamAsync();
-            return JsonSerializer.Deserialize<RequestData<T>>(contentStream);
+            return await JsonSerializer.DeserializeAsync<RequestData<T>>(contentStream, JsonOptions);
         }
         catch (Exception e)
         {
