@@ -15,7 +15,7 @@ public class Agent : SymbolModelBase, IAgent
     ///     The number of credits the agent has available.
     ///     Credits can be negative if funds have been overdrawn.
     /// </summary>
-    public int Credits { get; set; }
+    public long Credits { get; set; }
 
     /// <summary>
     ///     The faction the agent started with.

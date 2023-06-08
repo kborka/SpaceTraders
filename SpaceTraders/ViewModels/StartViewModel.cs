@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
-using Config.Net;
 using MaterialDesignThemes.Wpf;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -12,6 +10,7 @@ using SpaceTraders.Api.Services.Interfaces;
 using SpaceTraders.ComponentModel;
 using SpaceTraders.ComponentModel.Interfaces;
 using SpaceTraders.Interfaces;
+using SpaceTraders.Settings;
 using SpaceTraders.Utilities;
 using SpaceTraders.ViewModels.Dialogs;
 using SpaceTraders.ViewModels.Game;
@@ -21,7 +20,6 @@ namespace SpaceTraders.ViewModels;
 
 public sealed class StartViewModel : BindableBase, IAsyncInitialization
 {
-    private readonly IConnectionSettings _settings;
     private readonly IGameService _gameService;
     private IGameStatus? _status;
     private GameStatsViewModel? _gameStats;
@@ -30,7 +28,6 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
 
     public StartViewModel(IGameService gameService)
     {
-        _settings = new ConfigurationBuilder<IConnectionSettings>().UseJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}\\Settings.json").Build();
         _gameService = gameService;
         Initialization = InitializeAsync();
         Announcements = new ObservableCollection<GameAnnouncementViewModel>();
@@ -38,7 +35,7 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
         OpenRegistrationDialogCommand = new AsyncCommand(OpenRegistrationDialog);
     }
 
-    public event EventHandler<IGameRegistrationResponse> NewAgentRegistered;
+    public event EventHandler<IGameRegistrationResponse>? NewAgentRegistered;
 
     public Task<bool> Initialization { get; }
 
@@ -94,10 +91,10 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
             Links.Add(new GameLinkViewModel(link));
         }
 
-        if (_status.LastResetDate > (_settings.LastServerReset ?? DateTime.UnixEpoch))
+        if (_status.LastResetDate > (AppNexus.UserSettings.LastServerReset ?? DateTime.UnixEpoch))
         {
-            _settings.LastServerReset = _status.LastResetDate;
-            _settings.AgentToken = null;
+            AppNexus.UserSettings.LastServerReset = _status.LastResetDate;
+            AppNexus.UserSettings.RemoveAllAgents();
         }
 
         return true;
@@ -124,9 +121,14 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
 
         if (e.Session.Content is not RegistrationDialog registrationDialog) return;
         var registrationInfo = ((RegistrationDialogViewModel)registrationDialog.DataContext).RegistrationInformation;
-        _settings.AgentToken = registrationInfo?.Token;
-        _settings.AgentSymbol = registrationInfo?.Agent.Symbol;
-        _settings.AgentCredits = registrationInfo?.Agent.Credits;
+
+        if (registrationInfo is not null)
+        {
+            var newAgent = new RegisteredAgent(registrationInfo.Token, registrationInfo.Agent.Symbol,
+                registrationInfo.Agent.Credits);
+
+            AppNexus.UserSettings.AddNewAgent(newAgent);
+        }
 
         ApiNexus.AuthToken = registrationInfo?.Token;
 

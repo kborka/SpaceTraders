@@ -3,7 +3,7 @@
 /// <summary>
 ///     The routing information for the ship's most recent transit or current location.
 /// </summary>
-public interface IShipNaveRoute
+public interface IShipNavRoute
 {
     IShipNavRouteWaypoint Destination { get; set; }
 

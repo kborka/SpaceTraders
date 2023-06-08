@@ -35,8 +35,8 @@ namespace SpaceTraders.Views
                 attribute = DWMWA_USER_IMERSIVE_DARK_MODE;
             }
 
-            int useImmersiveDarkMode = enabled ? 1 : 0;
-            return DwmSetWindowAttribute(handle, (int)attribute, ref useImmersiveDarkMode, sizeof(int)) == 0;
+            var useImmersiveDarkMode = enabled ? 1 : 0;
+            return DwmSetWindowAttribute(handle, attribute, ref useImmersiveDarkMode, sizeof(int)) == 0;
         }
 
         private static bool IsWindows10OrGreater(int build = -1) => Environment.OSVersion.Version.Major >= 10 &&

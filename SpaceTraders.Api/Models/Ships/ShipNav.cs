@@ -19,7 +19,7 @@ public class ShipNav : IShipNav
     /// </summary>
     public string WaypointSymbol { get; set; } = null!;
 
-    public IShipNaveRoute Route { get; set; } = null!;
+    public IShipNavRoute Route { get; set; } = null!;
 
     public NavStatus Status { get; set; }
 

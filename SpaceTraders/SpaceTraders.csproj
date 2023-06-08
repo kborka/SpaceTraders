@@ -9,7 +9,6 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Common" Version="8.2.0" />
-      <PackageReference Include="Config.Net" Version="5.1.5" />
       <PackageReference Include="DryIoc.Microsoft.DependencyInjection.Extension" Version="1.0.0.2" />
       <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
       <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />

@@ -5,7 +5,7 @@ namespace SpaceTraders.Api.Models.Ships;
 /// <summary>
 ///     The routing information for the ship's most recent transit or current location.
 /// </summary>
-public class ShipNavRoute : IShipNaveRoute
+public class ShipNavRoute : IShipNavRoute
 {
     public IShipNavRouteWaypoint Destination { get; set; } = null!;
 

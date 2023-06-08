@@ -11,19 +11,12 @@ namespace SpaceTraders.Api.Services;
 public abstract class ServiceBase
 {
     private readonly HttpClient _httpClient;
-    protected readonly JsonSerializerOptions JsonOptions;
 
     protected ServiceBase(HttpClient httpClient)
     {
         _httpClient = httpClient;
         _httpClient.BaseAddress = new Uri(Constants.BaseUrl);
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ApiNexus.AuthToken);
-
-        JsonOptions = new JsonSerializerOptions()
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true
-        };
     }
 
     protected async Task<T?> GetValue<T>(string uri)
@@ -36,7 +29,7 @@ public abstract class ServiceBase
 
         try
         {
-            return JsonSerializer.Deserialize<T>(contentStream, JsonOptions);
+            return JsonSerializer.Deserialize<T>(contentStream, ApiNexus.JsonOptions);
         }
         catch (Exception e)
         {
@@ -60,7 +53,7 @@ public abstract class ServiceBase
                 return default;
 
             var contentStream = await httpResponse.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<RequestData<T>>(contentStream, JsonOptions);
+            return await JsonSerializer.DeserializeAsync<RequestData<T>>(contentStream, ApiNexus.JsonOptions);
         }
         catch (Exception e)
         {

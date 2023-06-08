@@ -11,6 +11,7 @@ public enum DepositTypes
 
     [EnumMember(Value = "SILICON_CRYSTALS")]
     SiliconCrystals,
+    [EnumMember(Value = "PRECIOUS_STONES")] PreciousStones,
     [EnumMember(Value = "ICE_WATER")] IceWater,
     [EnumMember(Value = "AMMONIA_ICE")] AmmoniaIce,
     [EnumMember(Value = "IRON_ORE")] IronOre,

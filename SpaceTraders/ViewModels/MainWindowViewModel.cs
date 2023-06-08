@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using Prism.Ioc;
 using Prism.Mvvm;
-using SpaceTraders.Api.Enums;
 using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.ComponentModel;
 using SpaceTraders.Utilities;

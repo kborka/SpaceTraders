@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Prism.Mvvm;
 using SpaceTraders.Api.Models.Interfaces;
-using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
 using SpaceTraders.Interfaces;
 
@@ -33,7 +32,7 @@ public class AgentViewModel : BindableBase, IAsyncInitialization
 
     public string? Symbol => _agent?.Symbol;
 
-    public int? Credits => _agent?.Credits;
+    public long? Credits => _agent?.Credits;
 
     public void Initialize(IAgent agent)
     {

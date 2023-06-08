@@ -13,7 +13,7 @@ public interface IAgent : ISymbolModel
     ///     The number of credits the agent has available.
     ///     Credits can be negative if funds have been overdrawn.
     /// </summary>
-    int Credits { get; set; }
+    long Credits { get; set; }
 
     /// <summary>
     ///     The faction the agent started with.

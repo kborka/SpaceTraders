@@ -18,7 +18,7 @@ public interface IShipNav
     /// </summary>
     string WaypointSymbol { get; set; }
 
-    IShipNaveRoute Route { get; set; }
+    IShipNavRoute Route { get; set; }
 
     NavStatus Status { get; set; }
 

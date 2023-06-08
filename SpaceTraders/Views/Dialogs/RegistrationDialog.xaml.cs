@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
 using SpaceTraders.ViewModels.Dialogs;
 
 namespace SpaceTraders.Views.Dialogs;
 
-public partial class RegistrationDialog : UserControl
+public partial class RegistrationDialog
 {
-    private RegistrationDialogViewModel? vm;
+    private RegistrationDialogViewModel? _vm;
 
     public RegistrationDialog()
     {
@@ -18,14 +17,14 @@ public partial class RegistrationDialog : UserControl
     private void RegistrationDialog_OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         if (e.NewValue is not RegistrationDialogViewModel registrationDialogViewModel) return;
-        vm = registrationDialogViewModel;
-        vm.PropertyChanged += VmOnPropertyChanged;
+        _vm = registrationDialogViewModel;
+        _vm.PropertyChanged += VmOnPropertyChanged;
     }
 
     private void VmOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(RegistrationDialogViewModel.RegistrationInformation)) return;
-        vm.PropertyChanged -= VmOnPropertyChanged;
+        _vm!.PropertyChanged -= VmOnPropertyChanged;
         DialogHost.CloseDialogCommand.Execute(true, this);
     }
 }

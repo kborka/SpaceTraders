@@ -103,25 +103,22 @@ public class RegistrationDialogViewModel : ValidatableBindableBase
         return !HasErrors;
     }
 
-    private bool ValidateEmailAddress(string? address)
+    private void ValidateEmailAddress(string? address)
     {
         if (address is null)
         {
-            return false;
+            return;
         }
 
         ClearErrors(nameof(Email));
 
         try
         {
-            var m = new MailAddress(address);
+            var _ = new MailAddress(address);
         }
         catch (FormatException)
         {
             AddError(nameof(Email), "Invalid email address format.");
-            return false;
         }
-
-        return true;
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.Text.Json;
-using SpaceTraders.Api.Models.Game;
-using SpaceTraders.Api.Models.Interfaces;
 using SpaceTraders.Api.Models.Interfaces.Data;
 using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
@@ -17,7 +15,7 @@ public class GameService : ServiceBase, IGameService
     {
         try
         {
-            var response = await GetValue<GameStatus>(string.Empty);
+            var response = await GetValue<IGameStatus>(string.Empty);
             return response;
         }
         catch (Exception ex)
@@ -32,7 +30,7 @@ public class GameService : ServiceBase, IGameService
     {
         try
         {
-            var jsonRequestString = JsonSerializer.Serialize(registrationRequest, JsonOptions);
+            var jsonRequestString = JsonSerializer.Serialize(registrationRequest, ApiNexus.JsonOptions);
             return await PostValue<IGameRegistrationResponse?>("register", jsonRequestString);
         }
         catch (Exception ex)

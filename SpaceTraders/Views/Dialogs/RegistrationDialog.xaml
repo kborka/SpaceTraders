@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:SpaceTraders.ViewModels.Dialogs"
-             xmlns:local="clr-namespace:SpaceTraders.Views"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              mc:Ignorable="d"
@@ -18,9 +17,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0"
+        <Border Grid.Row="0"
+                BorderThickness="0,0,0,1"
+                Margin="7,0,7,14"
+                BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}">
+        <TextBlock Margin="7,3.5"
+                   Text="Register New Agent"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+        </Border>
+
+        <TextBox Grid.Row="1"
                  Margin="7,3.5"
                  MinWidth="195"
                  materialDesign:TextFieldAssist.HasClearButton="True"
@@ -28,7 +37,7 @@
                  Text="{Binding AgentSymbol, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
-        <ComboBox Grid.Row="1"
+        <ComboBox Grid.Row="2"
                   Margin="7,3.5"
                   MinWidth="195"
                   materialDesign:HintAssist.Hint="Faction"
@@ -36,7 +45,7 @@
                   SelectedItem="{Binding Faction}"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
 
-        <TextBox Grid.Row="2"
+        <TextBox Grid.Row="3"
                  Margin="7,3.5"
                  MinWidth="195"
                  materialDesign:TextFieldAssist.HasClearButton="True"
@@ -44,7 +53,7 @@
                  Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
-        <StackPanel Grid.Row="3" Margin="7" Orientation="Horizontal">
+        <StackPanel Grid.Row="4" Margin="7" Orientation="Horizontal">
             <Button Content="REGISTER"
                     IsDefault="True"
                     Command="{Binding RegisterAgentCommand}"
