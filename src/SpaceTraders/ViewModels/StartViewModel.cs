@@ -64,7 +64,7 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
     public GameLeaderboardViewModel? Leaderboard
     {
         get => _leaderboard;
-        set => SetProperty(ref _leaderboard, value);
+        private set => SetProperty(ref _leaderboard, value);
     }
 
     public ObservableCollection<GameAnnouncementViewModel> Announcements { get; }
@@ -115,7 +115,7 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
     private async Task OpenRegistrationDialog()
     {
         var dialogVm = AppNexus.ApplicationContainer.Resolve<RegistrationDialogViewModel>();
-        var dialog = new RegistrationDialog()
+        var dialog = new RegistrationDialog
         {
             DataContext = dialogVm
         };
@@ -125,7 +125,7 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
 
     private void RegistrationDialog_Closing(object? sender, DialogClosingEventArgs e)
     {
-        var dialogResult = Convert.ToBoolean(e.Parameter);
+        bool dialogResult = Convert.ToBoolean(e.Parameter);
         if (!dialogResult)
         {
             return;

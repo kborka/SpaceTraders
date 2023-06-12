@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceTraders", "SpaceTraders\SpaceTraders.csproj", "{5ACBC876-699B-41AD-AE26-C9C9EE120976}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceTraders", "src\SpaceTraders\SpaceTraders.csproj", "{5ACBC876-699B-41AD-AE26-C9C9EE120976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceTraders.Api", "SpaceTraders.Api\SpaceTraders.Api.csproj", "{06FFDC67-00DC-44FE-A178-434B4D1B4924}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceTraders.Api", "src\SpaceTraders.Api\SpaceTraders.Api.csproj", "{06FFDC67-00DC-44FE-A178-434B4D1B4924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceTraders.Core", "SpaceTraders.Core\SpaceTraders.Core.csproj", "{2E85C54E-1CE4-47DC-9F8C-AADF8601650D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceTraders.Core", "src\SpaceTraders.Core\SpaceTraders.Core.csproj", "{2E85C54E-1CE4-47DC-9F8C-AADF8601650D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
