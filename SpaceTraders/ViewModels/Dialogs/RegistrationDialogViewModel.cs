@@ -72,7 +72,7 @@ public class RegistrationDialogViewModel : ValidatableBindableBase
 
     private async Task RegisterAgent()
     {
-        var registration = new GameRegistrationRequest()
+        var registration = new GameRegistrationRequest
         {
             Symbol = AgentSymbol,
             Faction = Faction,

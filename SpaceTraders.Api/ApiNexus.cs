@@ -24,13 +24,14 @@ using SpaceTraders.Api.Models.Surveys;
 using SpaceTraders.Api.Models.Systems;
 using SpaceTraders.Api.Models.Waypoints;
 using SpaceTraders.Api.Utilities;
-using SpaceTraders.Api.Utilities.Json;
+using SpaceTraders.Core.Utilities.Json;
 
 namespace SpaceTraders.Api;
 
 public static class ApiNexus
 {
-    private static IApiNexus? _instance;
+    // ReSharper disable once InconsistentNaming
+    private static readonly Lazy<IApiNexus> _instance = new(() => new ApiNexusNested());
 
     private class ApiNexusNested : IApiNexus
     {
@@ -118,5 +119,5 @@ public static class ApiNexus
 
     public static JsonSerializerOptions JsonOptions => Instance.JsonOptions;
 
-    private static IApiNexus Instance => _instance ??= new ApiNexusNested();
+    private static IApiNexus Instance => _instance.Value;
 }

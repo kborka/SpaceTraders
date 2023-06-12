@@ -6,7 +6,7 @@ namespace SpaceTraders.Api.Models.Game;
 public class GameServerReset : IGameServerReset
 {
     [JsonPropertyName("next")]
-    public string NextReset { get; set; } = null!;
+    public DateTime NextReset { get; set; }
 
     public string Frequency { get; set; } = null!;
 }

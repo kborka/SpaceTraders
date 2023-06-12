@@ -1,4 +1,5 @@
-﻿namespace SpaceTraders.XamlConstants;
+﻿// ReSharper disable once CheckNamespace
+namespace SpaceTraders.XamlConstants;
 
 public static class StyleKeys
 {

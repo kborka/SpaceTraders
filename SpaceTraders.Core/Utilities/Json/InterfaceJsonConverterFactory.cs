@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SpaceTraders.Api.Utilities.Json;
+namespace SpaceTraders.Core.Utilities.Json;
 
 /// <summary>
 /// A factory for generating JSON converters between implementations and interfaces.

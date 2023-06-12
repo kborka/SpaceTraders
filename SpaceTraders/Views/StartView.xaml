@@ -23,7 +23,7 @@
                     <Setter.Value>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"
-                                       Style="{StaticResource MaterialDesignHeadline4TextBlock}"/>
+                                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
@@ -159,7 +159,7 @@
                         <Label Content="Next Reset:"
                                Style="{StaticResource {x:Static xamlConstants:StyleKeys.BoldLabelStyle}}" />
                         <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding NextServerReset.NextReset}" />
+                                   Text="{Binding NextServerReset.NextReset, StringFormat={}{0:yyyy-MM-dd HH:mm:ss zzz}}" />
                     </StackPanel>
 
                     <!-- Reset Frequency -->
@@ -173,131 +173,10 @@
             </materialDesign:Card>
 
             <!-- Stats -->
-            <!-- TODO: I don't like accessing underlying view models like this. Make this a data template or something -->
-            <materialDesign:Card Grid.Row="1" Margin="3.5">
-                <StackPanel>
-
-                    <TextBlock Margin="3.5,0"
-                               Text="Stats"
-                               Style="{StaticResource MaterialDesignHeadline5TextBlock}" />
-
-                    <Border BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}"
-                            BorderThickness="0,1,0,0" />
-
-                    <!-- Agent Count -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Agents:"
-                               Style="{StaticResource {x:Static xamlConstants:StyleKeys.BoldLabelStyle}}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding Stats.AgentCount}" />
-                    </StackPanel>
-
-                    <!-- Ship Count -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Ships:"
-                               Style="{StaticResource {x:Static xamlConstants:StyleKeys.BoldLabelStyle}}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding Stats.ShipCount}" />
-                    </StackPanel>
-
-                    <!-- System Count -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Systems:"
-                               Style="{StaticResource {x:Static xamlConstants:StyleKeys.BoldLabelStyle}}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding Stats.SystemCount}" />
-                    </StackPanel>
-
-                    <!-- Waypoint Count -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Waypoints:"
-                               Style="{StaticResource {x:Static xamlConstants:StyleKeys.BoldLabelStyle}}" />
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding Stats.WaypointCount}" />
-                    </StackPanel>
-                </StackPanel>
-            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="1" Margin="3.5" Content="{Binding Stats}"/>
 
             <!-- Leaderboard -->
-            <materialDesign:Card Grid.Row="2" Margin="3.5">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*" />
-                        <ColumnDefinition Width="5*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Column="0"
-                               Grid.ColumnSpan="2"
-                               Grid.Row="0"
-                               Margin="3.5,0"
-                               Text="Leaderboards"
-                               Style="{StaticResource MaterialDesignHeadline5TextBlock}" />
-
-                    <Border Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Grid.Row="1"
-                            BorderThickness="0,1,0,0"
-                            BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" />
-
-                    <!-- Most Credits -->
-                    <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" Margin="3.5">
-                        <TextBlock Margin="0,3.5"
-                                   Text="Most Credits"
-                                   Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
-                        <Border BorderThickness="0,1,0,0"
-                                BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" />
-
-                        <ItemsControl ItemsSource="{Binding Leaderboard.MostCredits}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="3.5,3.5"
-                                                   Text="{Binding AgentSymbol, StringFormat={}{0}:}" />
-                                        <TextBlock Margin="3.5,3.5"
-                                                   Text="{Binding Path=LeaderValue}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-
-                    <!-- Most Submitted Charts -->
-                    <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Margin="3.5">
-                        <TextBlock Margin="0,3.5"
-                                   Text="Most Submitted Charts"
-                                   Style="{StaticResource MaterialDesignSubtitle2TextBlock}" />
-                        <Border BorderThickness="0,1,0,0"
-                                BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" />
-
-                        <ItemsControl ItemsSource="{Binding Leaderboard.MostSubmittedCharts}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="3.5,3.5"
-                                                   Text="{Binding AgentSymbol, StringFormat={}{0}:}" />
-                                        <TextBlock Margin="3.5,3.5"
-                                                   Text="{Binding Path=LeaderValue}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="2" Margin="3.5" Content="{Binding Leaderboard}"/>
         </Grid>
 
         <!-- Registration and agent selection -->
@@ -322,6 +201,33 @@
                     BorderThickness="1,0,0,0"
                     Margin="7,0"
                     BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}" />
+
+            <ItemsControl Grid.Column="1" Margin="14,0" ItemsSource="{Binding Path=RegisteredAgents}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Margin="3.5,0" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Margin="3.5, 0" Style="{StaticResource MaterialDesignOutlinedLightButton}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Account" VerticalAlignment="Center" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Margin="3.5,3.5"
+                                                   Text="Agent:"
+                                                   VerticalAlignment="Center" />
+                                        <TextBlock Margin="3.5,3.5"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding AgentSymbol}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Grid>
 </UserControl>

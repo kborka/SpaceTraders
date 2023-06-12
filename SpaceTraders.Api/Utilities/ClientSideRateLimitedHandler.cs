@@ -21,6 +21,8 @@ public sealed class ClientSideRateLimitedHandler : DelegatingHandler
         }
         finally
         {
+            // TODO: Use actual checks against the throttle header values
+            await Task.Delay(1000, cancellationToken);
             _throttler.Release();
         }
     }

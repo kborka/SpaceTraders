@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using System;
+using Prism.Mvvm;
 using SpaceTraders.Api.Models.Interfaces.Game;
 
 namespace SpaceTraders.ViewModels.Game;
@@ -11,7 +12,7 @@ public class GameServerResetViewModel : BindableBase
         Frequency = serverReset.Frequency;
     }
 
-    public string NextReset { get; }
+    public DateTime NextReset { get; }
 
     public string Frequency { get; }
 }

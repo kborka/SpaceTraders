@@ -14,6 +14,7 @@ using SpaceTraders.Settings;
 using SpaceTraders.Utilities;
 using SpaceTraders.ViewModels.Dialogs;
 using SpaceTraders.ViewModels.Game;
+using SpaceTraders.ViewModels.Settings;
 using SpaceTraders.Views.Dialogs;
 
 namespace SpaceTraders.ViewModels;
@@ -30,6 +31,7 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
     {
         _gameService = gameService;
         Initialization = InitializeAsync();
+        RegisteredAgents = new ObservableCollection<RegisteredAgentViewModel>();
         Announcements = new ObservableCollection<GameAnnouncementViewModel>();
         Links = new ObservableCollection<GameLinkViewModel>();
         OpenRegistrationDialogCommand = new AsyncCommand(OpenRegistrationDialog);
@@ -69,6 +71,8 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
 
     public ObservableCollection<GameLinkViewModel> Links { get; }
 
+    public ObservableCollection<RegisteredAgentViewModel> RegisteredAgents { get; }
+
     public IAsyncCommand OpenRegistrationDialogCommand { get; }
 
     private async Task<bool> InitializeAsync()
@@ -91,10 +95,18 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
             Links.Add(new GameLinkViewModel(link));
         }
 
-        if (_status.LastResetDate > (AppNexus.UserSettings.LastServerReset ?? DateTime.UnixEpoch))
+        if (_status.LastResetDate > (UserSettings.LastServerReset ?? DateTime.UnixEpoch))
         {
-            AppNexus.UserSettings.LastServerReset = _status.LastResetDate;
-            AppNexus.UserSettings.RemoveAllAgents();
+            UserSettings.LastServerReset = _status.LastResetDate;
+            UserSettings.RemoveAllAgents();
+            RegisteredAgents.Clear();
+        }
+        else if (UserSettings.RegisteredAgents is not null)
+        {
+            foreach (var agent in UserSettings.RegisteredAgents)
+            {
+                RegisteredAgents.Add(new RegisteredAgentViewModel(agent));
+            }
         }
 
         return true;
@@ -127,7 +139,7 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
             var newAgent = new RegisteredAgent(registrationInfo.Token, registrationInfo.Agent.Symbol,
                 registrationInfo.Agent.Credits);
 
-            AppNexus.UserSettings.AddNewAgent(newAgent);
+            UserSettings.AddNewAgent(newAgent);
         }
 
         ApiNexus.AuthToken = registrationInfo?.Token;

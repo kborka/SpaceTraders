@@ -4,7 +4,7 @@ namespace SpaceTraders.Api.Models.Interfaces.Game;
 
 public interface IGameServerReset
 {
-    string NextReset { get; set; }
+    DateTime NextReset { get; set; }
 
     [JsonRequired]
     string Frequency { get; set; }

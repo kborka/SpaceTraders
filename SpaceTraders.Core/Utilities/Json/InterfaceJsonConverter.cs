@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SpaceTraders.Api.Utilities.Json;
+namespace SpaceTraders.Core.Utilities.Json;
 
 public class InterfaceJsonConverter<TImplementation, TInterface> : JsonConverter<TInterface>
 where TImplementation : class, TInterface
