@@ -41,17 +41,16 @@ public static class UserSettings
 
         try
         {
-            var fileText = File.ReadAllText(s_settingsPath);
+            string fileText = File.ReadAllText(s_settingsPath);
             var jsonOptions = new JsonSerializerOptions()
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 Converters =
                 {
                     new InterfaceJsonConverterFactory<UserSettingsNested, IUserSettings>(),
                     new InterfaceJsonConverterFactory<RegisteredAgent, IRegisteredAgent>()
                 }
             };
-            var parsedSettings = JsonSerializer.Deserialize<UserSettingsNested>(fileText, jsonOptions);
+            var parsedSettings = JsonSerializer.Deserialize<IUserSettings>(fileText, jsonOptions);
             return parsedSettings ?? new UserSettingsNested();
         }
         catch (Exception)
@@ -79,6 +78,8 @@ public static class UserSettings
             get => _lastServerReset;
             set
             {
+                if (_lastServerReset == value) return;
+
                 _lastServerReset = value;
                 Task.Run(SaveSettings);
             }

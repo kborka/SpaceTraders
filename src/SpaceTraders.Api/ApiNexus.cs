@@ -58,6 +58,7 @@ public static class ApiNexus
                                                                       new InterfaceJsonConverterFactory<ExtractionYield, IExtractionYield>(),
                                                                       new InterfaceJsonConverterFactory<Faction, IFaction>(),
                                                                       new InterfaceJsonConverterFactory<FactionTrait, IFactionTrait>(),
+                                                                      new InterfaceJsonConverterFactory<GameRegistrationRequest, IGameRegistrationRequest>(),
                                                                       new InterfaceJsonConverterFactory<GameRegistrationResponse, IGameRegistrationResponse>(),
                                                                       new InterfaceJsonConverterFactory<GameStatus, IGameStatus>(),
                                                                       new InterfaceJsonConverterFactory<JumpGate, IJumpGate>(),

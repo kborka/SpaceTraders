@@ -16,7 +16,6 @@ namespace SpaceTraders.Core.Utilities.Json;
 public class InterfaceJsonConverterFactory<TImplementation, TInterface> : JsonConverterFactory
 where TImplementation : class, TInterface
 {
-
     public Type ImplementationType { get; }
 
     public Type InterfaceType { get; }

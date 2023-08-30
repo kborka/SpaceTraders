@@ -30,7 +30,7 @@ public class GameService : ServiceBase, IGameService
     {
         try
         {
-            var jsonRequestString = JsonSerializer.Serialize(registrationRequest, ApiNexus.JsonOptions);
+            string jsonRequestString = JsonSerializer.Serialize(registrationRequest, ApiNexus.JsonOptions);
             return await PostValue<IGameRegistrationResponse?>("register", jsonRequestString);
         }
         catch (Exception ex)
