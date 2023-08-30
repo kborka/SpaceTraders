@@ -1,19 +1,22 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Factions;
+﻿using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Interfaces.Factions;
 
 namespace SpaceTraders.Api.Models.Factions;
 
 public class Faction : SymbolModelBase, IFaction
 {
+    /// <inheritdoc/>
     public string Name { get; set; } = null!;
 
+    /// <inheritdoc/>
     public string Description { get; set; } = null!;
 
+    /// <inheritdoc/>
     public string Headquarters { get; set; } = null!;
 
+    /// <inheritdoc/>
     public IEnumerable<IFactionTrait> Traits { get; set; } = null!;
 
-    /// <summary>
-    ///     Whether or not the faction is currently recruiting new agents.
-    /// </summary>
+    /// <inheritdoc/>
     public bool IsRecruiting { get; set; }
 }

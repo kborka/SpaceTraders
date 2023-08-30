@@ -1,11 +1,11 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Contracts;
+﻿using SpaceTraders.Core.Interfaces.Contracts;
 
 namespace SpaceTraders.Api.Models.Contracts;
 
 public class ContractTerms : IContractTerms
 {
     /// <summary>
-    ///     The deadline for the contract.
+    /// The deadline for the contract.
     /// </summary>
     public DateTime Deadline { get; set; }
 

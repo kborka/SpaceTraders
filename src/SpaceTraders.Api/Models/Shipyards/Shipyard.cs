@@ -1,22 +1,17 @@
-﻿using SpaceTraders.Api.Enums;
-using SpaceTraders.Api.Models.Interfaces.Shipyards;
+﻿using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Enums;
+using SpaceTraders.Core.Interfaces.Shipyards;
 
 namespace SpaceTraders.Api.Models.Shipyards;
 
 public class Shipyard : SymbolModelBase, IShipyard
 {
-    /// <summary>
-    ///     The list of ship types available for purchase at this shipyard.
-    /// </summary>
+    /// <inheritdoc/>
     public IEnumerable<ShipType> ShipTypes { get; set; } = null!;
 
-    /// <summary>
-    ///     The list of recent transactions at this shipyard.
-    /// </summary>
+    /// <inheritdoc/>
     public IEnumerable<IShipyardTransaction>? Transactions { get; set; }
 
-    /// <summary>
-    ///     The ships that are currently available for purchase at the shipyard.
-    /// </summary>
+    /// <inheritdoc/>
     public IEnumerable<IShipyardShip>? Ships { get; set; }
 }

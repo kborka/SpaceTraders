@@ -1,9 +1,12 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Game;
+﻿using SpaceTraders.Core.Interfaces.Game;
 
 namespace SpaceTraders.Api.Models.Game;
 
 public class GameLeaderboard : IGameLeaderboard
 {
+    public IEnumerable<LeaderboardCredits> MostCredits { get; set; } = null!;
+    public IEnumerable<LeaderboardSubmittedCharts> MostSubmittedCharts { get; set; } = null!;
+
     IEnumerable<ILeaderboardValue> IGameLeaderboard.MostCredits
     {
         get => MostCredits;
@@ -12,14 +15,12 @@ public class GameLeaderboard : IGameLeaderboard
             if (value is not IEnumerable<LeaderboardCredits> mostCredits)
             {
                 throw new InvalidCastException(
-                    "Invalid IEnumerable<ILeaderboardValue> type: Expected <IEnumerableLeaderboardCredits>");
+                                               "Invalid IEnumerable<ILeaderboardValue> type: Expected <IEnumerableLeaderboardCredits>");
             }
 
             MostCredits = mostCredits;
         }
     }
-
-    public IEnumerable<LeaderboardCredits> MostCredits { get; set; } = null!;
 
 
     IEnumerable<ILeaderboardValue> IGameLeaderboard.MostSubmittedCharts
@@ -30,11 +31,10 @@ public class GameLeaderboard : IGameLeaderboard
             if (value is not IEnumerable<LeaderboardSubmittedCharts> submittedCharts)
             {
                 throw new InvalidCastException(
-                    "Invalid IEnumerable<ILeaderboardValue> type: Expected <IEnumerableLeaderboardSubmittedCharts>");
+                                               "Invalid IEnumerable<ILeaderboardValue> type: Expected <IEnumerableLeaderboardSubmittedCharts>");
             }
 
             MostSubmittedCharts = submittedCharts;
         }
     }
-    public IEnumerable<LeaderboardSubmittedCharts> MostSubmittedCharts { get; set; } = null!;
 }

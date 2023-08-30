@@ -1,15 +1,14 @@
 ﻿using System.Text.Json.Serialization;
-using SpaceTraders.Api.Enums;
-using SpaceTraders.Api.Models.Interfaces.Game;
+using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Enums;
+using SpaceTraders.Core.Interfaces.Game;
 
 namespace SpaceTraders.Api.Models.Game;
 
 public class GameRegistrationRequest : SymbolModelBase, IGameRegistrationRequest
 {
     [JsonRequired]
-    [JsonConverter(typeof(JsonStringEnumMemberConverter))]
-    public StartingFactionType Faction { get; init; }
+    public string Faction { get; init; } = null!;
 
-    [JsonRequired]
-    public string Email { get; init; } = null!;
+    [JsonRequired] public string Email { get; init; } = null!;
 }

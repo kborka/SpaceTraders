@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using Prism.Ioc;
 using Prism.Mvvm;
 using SpaceTraders.Api;
-using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
 using SpaceTraders.ComponentModel;
 using SpaceTraders.ComponentModel.Interfaces;
+using SpaceTraders.Core.Interfaces.Game;
 using SpaceTraders.Interfaces;
 using SpaceTraders.Settings;
 using SpaceTraders.Utilities;
@@ -19,9 +20,10 @@ using SpaceTraders.Views.Dialogs;
 
 namespace SpaceTraders.ViewModels;
 
-public sealed class StartViewModel : BindableBase, IAsyncInitialization
+public sealed class StartViewModel : BindableBase, IAsyncLoadingViewModel
 {
     private readonly IGameService _gameService;
+    private bool _dataLoaded;
     private IGameStatus? _status;
     private GameStatsViewModel? _gameStats;
     private GameServerResetViewModel? _serverReset;
@@ -30,7 +32,7 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
     public StartViewModel(IGameService gameService)
     {
         _gameService = gameService;
-        Initialization = InitializeAsync();
+        InitializeCommand = new AsyncCommand(Initialize);
         RegisteredAgents = new ObservableCollection<RegisteredAgentViewModel>();
         Announcements = new ObservableCollection<GameAnnouncementViewModel>();
         Links = new ObservableCollection<GameLinkViewModel>();
@@ -39,7 +41,18 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
 
     public event EventHandler<IGameRegistrationResponse>? NewAgentRegistered;
 
-    public Task<bool> Initialization { get; }
+    /// <inheritdoc/>
+    public event EventHandler? InitializationCompleted;
+
+    /// <inheritdoc/>
+    public ICommand InitializeCommand { get; }
+
+    /// <inheritdoc/>
+    public bool DataLoaded
+    {
+        get => _dataLoaded;
+        private set => SetProperty(ref _dataLoaded, value);
+    }
 
     public string? Status => _status?.Status;
 
@@ -75,10 +88,15 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
 
     public IAsyncCommand OpenRegistrationDialogCommand { get; }
 
-    private async Task<bool> InitializeAsync()
+    private async Task Initialize()
     {
         _status= await _gameService.GetStatus();
-        if (_status is null) return false;
+        if (_status is null)
+        {
+            DataLoaded = false;
+            InitializationCompleted?.Invoke(this, EventArgs.Empty);
+            return;
+        }
 
         RaisePropertyChanged(nameof(Description));
         Stats = new GameStatsViewModel(_status.Stats);
@@ -109,7 +127,8 @@ public sealed class StartViewModel : BindableBase, IAsyncInitialization
             }
         }
 
-        return true;
+        DataLoaded = true;
+        InitializationCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     private async Task OpenRegistrationDialog()

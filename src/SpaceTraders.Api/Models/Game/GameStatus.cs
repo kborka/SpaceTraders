@@ -1,19 +1,27 @@
 ﻿using System.Text.Json.Serialization;
-using SpaceTraders.Api.Models.Interfaces.Game;
+using SpaceTraders.Core.Interfaces.Game;
 
 namespace SpaceTraders.Api.Models.Game;
 
 /// <summary>
-///     Represents the current game status.
+/// Represents the current game status.
 /// </summary>
 public class GameStatus : IGameStatus
 {
+    public GameStats Stats { get; set; } = null!;
+
+    public GameLeaderboard Leaderboards { get; set; } = null!;
+
+    [JsonPropertyName("serverResets")] public GameServerReset NextServerReset { get; set; } = null!;
+
+    public IEnumerable<GameAnnouncement> Announcements { get; set; } = null!;
+
+    public IEnumerable<GameLink> Links { get; set; } = null!;
     public string Status { get; set; } = null!;
 
     public string Version { get; set; } = null!;
 
-    [JsonPropertyName("resetDate")]
-    public DateTime LastResetDate { get; set; }
+    [JsonPropertyName("resetDate")] public DateTime LastResetDate { get; set; }
 
     public string Description { get; set; } = null!;
 
@@ -31,8 +39,6 @@ public class GameStatus : IGameStatus
         }
     }
 
-    public GameStats Stats { get; set; } = null!;
-
     IGameLeaderboard IGameStatus.Leaderboards
     {
         get => Leaderboards;
@@ -46,8 +52,6 @@ public class GameStatus : IGameStatus
             Leaderboards = leaderboards;
         }
     }
-
-    public GameLeaderboard Leaderboards { get; set; } = null!;
 
     IGameServerReset IGameStatus.NextServerReset
     {
@@ -63,9 +67,6 @@ public class GameStatus : IGameStatus
         }
     }
 
-    [JsonPropertyName("serverResets")]
-    public GameServerReset NextServerReset { get; set; } = null!;
-
     IEnumerable<IGameAnnouncement> IGameStatus.Announcements
     {
         get => Announcements;
@@ -74,13 +75,12 @@ public class GameStatus : IGameStatus
             if (value is not IEnumerable<GameAnnouncement> announcements)
             {
                 throw new InvalidCastException(
-                    "Invalid IEnumerable<IGameAnnouncement> type: Expected IEnumerable<GameAnnouncement>");
+                                               "Invalid IEnumerable<IGameAnnouncement> type: Expected IEnumerable<GameAnnouncement>");
             }
 
             Announcements = announcements;
         }
     }
-    public IEnumerable<GameAnnouncement> Announcements { get; set; } = null!;
 
     IEnumerable<IGameLink> IGameStatus.Links
     {
@@ -95,6 +95,4 @@ public class GameStatus : IGameStatus
             Links = links;
         }
     }
-
-    public IEnumerable<GameLink> Links { get; set; } = null!;
 }

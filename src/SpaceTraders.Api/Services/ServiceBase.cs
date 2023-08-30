@@ -3,8 +3,8 @@ using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using SpaceTraders.Api.Models.Data;
-using SpaceTraders.Api.Models.Interfaces.Data;
 using SpaceTraders.Api.Utilities;
+using SpaceTraders.Core.Interfaces.Data;
 
 namespace SpaceTraders.Api.Services;
 

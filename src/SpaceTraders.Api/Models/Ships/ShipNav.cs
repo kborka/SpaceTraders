@@ -1,27 +1,25 @@
-﻿using SpaceTraders.Api.Enums;
-using SpaceTraders.Api.Models.Interfaces.Ships;
+﻿using SpaceTraders.Core.Enums;
+using SpaceTraders.Core.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
-///     The navigation information of the ship.
+/// The navigation information of the ship.
 /// </summary>
 public class ShipNav : IShipNav
 {
-    /// <summary>
-    ///     The system symbol of the ship's current location.
-    /// </summary>
+    /// <inheritdoc />
     public string SystemSymbol { get; set; } = null!;
 
-    /// <summary>
-    ///     The waypoint symbol of the ship's current location, or if the ship is in-transit, the waypoint of the ship's
-    ///     destination.
-    /// </summary>
+    /// <inheritdoc />
     public string WaypointSymbol { get; set; } = null!;
 
+    /// <inheritdoc />
     public IShipNavRoute Route { get; set; } = null!;
 
+    /// <inheritdoc />
     public NavStatus Status { get; set; }
 
+    /// <inheritdoc />
     public NavFlightMode FlightMode { get; set; } = NavFlightMode.Cruise;
 }

@@ -9,14 +9,76 @@
             Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textblock.xaml" />
         <ResourceDictionary
             Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-        <ResourceDictionary Source="../Styles.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="../Styles.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    <!-- #region View to ViewModel Templates -->
     <DataTemplate DataType="{x:Type vm:StartViewModel}">
         <views:StartView />
     </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:MainViewModel}">
         <views:MainView />
     </DataTemplate>
+    <!-- #endregion View to ViewModel Templates -->
+
+    <!-- #region General Templates -->
+
+    <ControlTemplate x:Key="{x:Static xamlConstants:TemplateKeys.FactionToolTipControlTemplate}" TargetType="ToolTip">
+        <Grid Background="{DynamicResource MaterialDesignLightBackground}"
+              Margin="7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Margin="3.5">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsRecruiting}"
+                                         Value="True">
+                                <Setter Property="Text" Value="Currently recruiting." />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsRecruiting}"
+                                         Value="False">
+                                <Setter Property="Text" Value="Not currently recruiting." />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Margin="3.5" Text="Traits:" />
+                <ItemsControl ItemsSource="{Binding Path=Traits}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="3.5"
+                                       Text="{Binding Path=Name}"
+                                       ToolTip="{Binding Path=Description}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="350" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="7,3.5" Text="Description:" />
+                <TextBlock Grid.Column="1"
+                           Margin="3.5"
+                           Text="{Binding Path=Description}"
+                           TextWrapping="Wrap" />
+            </Grid>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- #endregion General Templates -->
 
     <!-- #region Start Page Templates -->
 

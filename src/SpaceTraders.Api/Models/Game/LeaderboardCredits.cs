@@ -4,6 +4,5 @@ namespace SpaceTraders.Api.Models.Game;
 
 public class LeaderboardCredits : LeaderboardValueBase
 {
-    [JsonPropertyName("credits")]
-    public override uint LeaderValue { get; set; }
+    [JsonPropertyName("credits")] public override uint LeaderValue { get; set; }
 }

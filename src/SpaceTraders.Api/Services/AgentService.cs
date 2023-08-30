@@ -1,6 +1,6 @@
-﻿using SpaceTraders.Api.Models;
-using SpaceTraders.Api.Models.Interfaces;
+﻿using SpaceTraders.Api.Models.Agents;
 using SpaceTraders.Api.Services.Interfaces;
+using SpaceTraders.Core.Interfaces.Agents;
 
 namespace SpaceTraders.Api.Services;
 

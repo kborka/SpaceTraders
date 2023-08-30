@@ -1,4 +1,5 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Waypoints;
+﻿using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Interfaces.Waypoints;
 
 namespace SpaceTraders.Api.Models.Waypoints;
 

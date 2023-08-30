@@ -1,4 +1,4 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Game;
+﻿using SpaceTraders.Core.Interfaces.Game;
 
 namespace SpaceTraders.Api.Models.Game;
 

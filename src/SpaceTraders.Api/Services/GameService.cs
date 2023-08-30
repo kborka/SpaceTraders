@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
-using SpaceTraders.Api.Models.Interfaces.Data;
-using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
+using SpaceTraders.Core.Interfaces.Data;
+using SpaceTraders.Core.Interfaces.Game;
 
 namespace SpaceTraders.Api.Services;
 

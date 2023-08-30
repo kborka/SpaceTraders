@@ -1,18 +1,20 @@
-﻿using SpaceTraders.Api.Enums;
-using SpaceTraders.Api.Models.Interfaces.Systems;
+﻿using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Enums;
+using SpaceTraders.Core.Interfaces.Systems;
 
 namespace SpaceTraders.Api.Models.Systems;
 
 public class ConnectedSystem : CoordinateSymbolModelBase, IConnectedSystem
 {
+    /// <inheritdoc />
     public string SectorSymbol { get; set; } = null!;
 
+    /// <inheritdoc />
     public SystemType Type { get; set; }
 
-    /// <summary>
-    ///     The symbol of the faction that owns the connected jump gate in the system.
-    /// </summary>
+    /// <inheritdoc />
     public string? FactionSymbol { get; set; }
 
+    /// <inheritdoc />
     public int Distance { get; set; }
 }

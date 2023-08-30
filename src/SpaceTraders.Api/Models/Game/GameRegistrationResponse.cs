@@ -1,8 +1,8 @@
-﻿using SpaceTraders.Api.Models.Interfaces;
-using SpaceTraders.Api.Models.Interfaces.Contracts;
-using SpaceTraders.Api.Models.Interfaces.Factions;
-using SpaceTraders.Api.Models.Interfaces.Game;
-using SpaceTraders.Api.Models.Interfaces.Ships;
+﻿using SpaceTraders.Core.Interfaces.Agents;
+using SpaceTraders.Core.Interfaces.Contracts;
+using SpaceTraders.Core.Interfaces.Factions;
+using SpaceTraders.Core.Interfaces.Game;
+using SpaceTraders.Core.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Game;
 

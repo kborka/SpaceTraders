@@ -12,7 +12,7 @@ namespace SpaceTraders.Settings;
 
 public static class UserSettings
 {
-    private static readonly string SettingsPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Settings.json";
+    private static readonly string s_settingsPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Settings.json";
     // ReSharper disable once InconsistentNaming
     private static readonly Lazy<IUserSettings> _instance = new(LoadUserSettings);
 
@@ -34,14 +34,14 @@ public static class UserSettings
 
     private static IUserSettings LoadUserSettings()
     {
-        if (!File.Exists(SettingsPath))
+        if (!File.Exists(s_settingsPath))
         {
             return new UserSettingsNested();
         }
 
         try
         {
-            var fileText = File.ReadAllText(SettingsPath);
+            var fileText = File.ReadAllText(s_settingsPath);
             var jsonOptions = new JsonSerializerOptions()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -62,7 +62,7 @@ public static class UserSettings
 
     private class UserSettingsNested : IUserSettings
     {
-        private static readonly SemaphoreSlim SaveSemaphore = new(1, 1);
+        private static readonly SemaphoreSlim s_saveSemaphore = new(1, 1);
         private IList<IRegisteredAgent>? _registeredAgents;
         private DateTime? _lastServerReset;
 
@@ -111,11 +111,11 @@ public static class UserSettings
 
         private async Task SaveSettings()
         {
-            await SaveSemaphore.WaitAsync();
-            await using var fileStream = File.Create(SettingsPath);
+            await s_saveSemaphore.WaitAsync();
+            await using var fileStream = File.Create(s_settingsPath);
             await JsonSerializer.SerializeAsync(fileStream, this);
             await fileStream.DisposeAsync();
-            SaveSemaphore.Release();
+            s_saveSemaphore.Release();
         }
     }
 }

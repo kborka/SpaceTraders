@@ -1,24 +1,19 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Ships;
+﻿using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
-///     The type of cargo item and the number of units.
+/// The type of cargo item and the number of units.
 /// </summary>
 public class ShipCargoItem : SymbolModelBase, IShipCargoItem
 {
-    /// <summary>
-    ///     The name of the cargo item.
-    /// </summary>
+    /// <inheritdoc />
     public string Name { get; set; } = null!;
 
-    /// <summary>
-    ///     The description of the cargo item type.
-    /// </summary>
+    /// <inheritdoc />
     public string Description { get; set; } = null!;
 
-    /// <summary>
-    ///     The number of units of the cargo item.
-    /// </summary>
+    /// <inheritdoc />
     public uint Units { get; set; }
 }

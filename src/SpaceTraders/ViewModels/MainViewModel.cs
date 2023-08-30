@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
 using Prism.Ioc;
 using Prism.Mvvm;
-using SpaceTraders.Api.Models.Interfaces.Game;
+using SpaceTraders.Core.Interfaces.Game;
 using SpaceTraders.Utilities;
+using SpaceTraders.ViewModels.Agents;
 
 namespace SpaceTraders.ViewModels;
 
 public class MainViewModel : BindableBase
 {
-    private AgentViewModel _agentViewModel;
+    private AgentViewModel? _agentViewModel;
 
     public MainViewModel()
     {
@@ -18,10 +19,10 @@ public class MainViewModel : BindableBase
 
     public MainViewModel(IGameRegistrationResponse registrationInfo) : this()
     {
-        AgentViewModel.Initialize(registrationInfo.Agent);
+        AgentViewModel?.Initialize(registrationInfo.Agent);
     }
 
-    public AgentViewModel AgentViewModel
+    public AgentViewModel? AgentViewModel
     {
         get => _agentViewModel;
         set => SetProperty(ref _agentViewModel, value);
@@ -29,6 +30,6 @@ public class MainViewModel : BindableBase
 
     private void InitializeViewModelsAsync()
     {
-        var task = Task.Run<bool>(async () => await AgentViewModel.Initialization);
+        var task = Task.Run<bool>(async () => await AgentViewModel?.Initialization);
     }
 }

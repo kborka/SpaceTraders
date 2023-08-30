@@ -1,6 +1,6 @@
 ﻿using SpaceTraders.Api.Models.Factions;
-using SpaceTraders.Api.Models.Interfaces.Factions;
 using SpaceTraders.Api.Services.Interfaces;
+using SpaceTraders.Core.Interfaces.Factions;
 
 namespace SpaceTraders.Api.Services;
 

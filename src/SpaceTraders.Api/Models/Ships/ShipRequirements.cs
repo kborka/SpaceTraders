@@ -1,24 +1,18 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Ships;
+﻿using SpaceTraders.Core.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
-///     The requirements for installation on a ship.
+/// The requirements for installation on a ship.
 /// </summary>
 public class ShipRequirements : IShipRequirements
 {
-    /// <summary>
-    ///     The amount of power required from the reactor.
-    /// </summary>
+    /// <inheritdoc />
     public int Power { get; set; }
 
-    /// <summary>
-    ///     The number of crew required for operation.
-    /// </summary>
+    /// <inheritdoc />
     public int Crew { get; set; }
 
-    /// <summary>
-    ///     The number of module slots required for installation.
-    /// </summary>
+    /// <inheritdoc />
     public int Slots { get; set; }
 }

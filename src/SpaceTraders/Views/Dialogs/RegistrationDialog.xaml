@@ -3,57 +3,181 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:SpaceTraders.ViewModels.Dialogs"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:xamlConstants="clr-namespace:SpaceTraders.XamlConstants"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:RegistrationDialogViewModel}"
              d:DesignHeight="300" d:DesignWidth="300"
+             MaxWidth="500"
              DataContextChanged="RegistrationDialog_OnDataContextChanged">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=InitializeCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Margin="14">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0"
+        <!-- Header -->
+        <Border Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="0"
                 BorderThickness="0,0,0,1"
                 Margin="7,0,7,14"
                 BorderBrush="{StaticResource MaterialDesignLightSeparatorBackground}">
-        <TextBlock Margin="7,3.5"
-                   Text="Register New Agent"
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+            <TextBlock Margin="7,3.5"
+                       Text="Register New Agent"
+                       Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
         </Border>
 
-        <TextBox Grid.Row="1"
+        <!-- Agent Name and Email -->
+        <TextBox Grid.Column="0"
+                 Grid.Row="1"
                  Margin="7,3.5"
                  MinWidth="195"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  materialDesign:HintAssist.Hint="Agent Symbol"
                  Text="{Binding AgentSymbol, UpdateSourceTrigger=PropertyChanged}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <ComboBox Grid.Row="2"
-                  Margin="7,3.5"
-                  MinWidth="195"
-                  materialDesign:HintAssist.Hint="Faction"
-                  ItemsSource="{Binding StartingFactions}"
-                  SelectedItem="{Binding Faction}"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
-
-        <TextBox Grid.Row="3"
+        <TextBox Grid.Column="1"
+                 Grid.Row="1"
                  Margin="7,3.5"
                  MinWidth="195"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  materialDesign:HintAssist.Hint="E-mail"
                  Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <StackPanel Grid.Row="4" Margin="7" Orientation="Horizontal">
+        <!-- Faction Information -->
+
+        <Grid Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ProgressBar Grid.Column="0"
+                         Grid.Row="0"
+                         Grid.RowSpan="2"
+                         IsIndeterminate="True"
+                         Value="0"
+                         Visibility="{Binding Path=DataLoaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                         Style="{StaticResource MaterialDesignCircularProgressBar}" />
+
+            <ComboBox Grid.Row="0"
+                      Margin="7,3.5"
+                      MinWidth="195"
+                      materialDesign:HintAssist.Hint="Starting Faction"
+                      DisplayMemberPath="Name"
+                      ItemsSource="{Binding StartingFactions}"
+                      SelectedItem="{Binding SelectedFaction}"
+                      Visibility="{Binding Path=DataLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ComboBox.Style>
+                    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
+                        <Setter Property="ToolTip" Value="{Binding Path=SelectedFaction}" />
+                        <Style.Resources>
+                            <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource MaterialDesignToolTip}">
+                                <Setter Property="DataContext" Value="{Binding Path=SelectedFaction}" />
+                                <Setter Property="Template"
+                                        Value="{StaticResource {x:Static xamlConstants:TemplateKeys.FactionToolTipControlTemplate}}" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </ComboBox.Style>
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ComboBoxItem}"
+                           BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}">
+                        <Setter Property="ToolTip" Value="{Binding}" />
+                        <Style.Resources>
+                            <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource MaterialDesignToolTip}">
+                                <Setter Property="Template"
+                                        Value="{StaticResource {x:Static xamlConstants:TemplateKeys.FactionToolTipControlTemplate}}" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+
+            <Grid Grid.Row="1"
+                  Margin="0,3.5"
+                  Visibility="{Binding Path=DataLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock Margin="7,3.5">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=SelectedFaction.IsRecruiting}" Value="True">
+                                        <Setter Property="Text" Value="Is recruiting." />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=SelectedFaction.IsRecruiting}" Value="False">
+                                        <Setter Property="Text" Value="Is not recruiting." />
+                                        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock Margin="7,3.5" Text="Traits:" VerticalAlignment="Center" />
+                    <ItemsControl ItemsSource="{Binding Path=SelectedFaction.Traits}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Card Margin="3.5" Padding="3.5">
+                                    <TextBlock Text="{Binding Path=Name}"
+                                               ToolTip="{Binding Path=Description}" />
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="350" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Margin="7,3.5" Text="Description:" />
+                    <TextBlock Grid.Column="1"
+                               Margin="7,3.5"
+                               Text="{Binding Path=SelectedFaction.Description}"
+                               TextWrapping="Wrap" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!-- Register/Cancel Buttons -->
+        <StackPanel Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="3"
+                    Margin="7"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
             <Button Content="REGISTER"
                     IsDefault="True"
                     Command="{Binding RegisterAgentCommand}"

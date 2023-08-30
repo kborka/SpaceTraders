@@ -1,23 +1,21 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Ships;
+﻿using SpaceTraders.Core.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
-///     The routing information for the ship's most recent transit or current location.
+/// The routing information for the ship's most recent transit or current location.
 /// </summary>
 public class ShipNavRoute : IShipNavRoute
 {
+    /// <inheritdoc />
     public IShipNavRouteWaypoint Destination { get; set; } = null!;
 
+    /// <inheritdoc />
     public IShipNavRouteWaypoint Departure { get; set; } = null!;
 
-    /// <summary>
-    ///     The date time of the ship's departure.
-    /// </summary>
+    /// <inheritdoc />
     public DateTime DepartureTime { get; set; }
 
-    /// <summary>
-    ///     The date time of the ship's arrival. If the ship is in-transit, this is the expected time of arrival.
-    /// </summary>
+    /// <inheritdoc />
     public DateTime Arrival { get; set; }
 }

@@ -1,22 +1,26 @@
-﻿using SpaceTraders.Api.Enums;
-using SpaceTraders.Api.Models.Interfaces.Ships;
+﻿using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Enums;
+using SpaceTraders.Core.Interfaces.Ships;
 
 namespace SpaceTraders.Api.Models.Ships;
 
 /// <summary>
-///     A mount is installed on the exterior of a ship.
+/// A mount is installed on the exterior of a ship.
 /// </summary>
 public class ShipMount : SymbolModelBase, IShipMount
 {
-    public MountType Type { get; set; }
-
+    /// <inheritdoc />
     public string Name { get; set; } = null!;
 
-    public string? Description { get; set; }
+    /// <inheritdoc />
+    public string Description { get; set; } = null!;
 
+    /// <inheritdoc />
     public uint? Strength { get; set; }
 
+    /// <inheritdoc />
     public IEnumerable<DepositTypes>? Deposits { get; set; }
 
+    /// <inheritdoc />
     public IShipRequirements Requirements { get; set; } = null!;
 }

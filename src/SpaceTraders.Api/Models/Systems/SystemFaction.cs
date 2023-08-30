@@ -1,4 +1,5 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Systems;
+﻿using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Interfaces.Systems;
 
 namespace SpaceTraders.Api.Models.Systems;
 

@@ -19,4 +19,16 @@
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
+    <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource MaterialDesignToolTip}">
+        <Style.Resources>
+            <Style TargetType="{x:Type ContentPresenter}">
+                <Style.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="TextWrapping" Value="Wrap"/>
+                        <Setter Property="MaxWidth" Value="350"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </Style.Resources>
+    </Style>
 </ResourceDictionary>

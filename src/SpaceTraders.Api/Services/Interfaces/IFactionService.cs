@@ -1,4 +1,4 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Factions;
+﻿using SpaceTraders.Core.Interfaces.Factions;
 
 namespace SpaceTraders.Api.Services.Interfaces;
 

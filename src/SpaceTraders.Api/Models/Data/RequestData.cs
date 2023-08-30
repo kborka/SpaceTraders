@@ -1,14 +1,15 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Data;
+﻿using SpaceTraders.Core.Interfaces.Data;
 
 namespace SpaceTraders.Api.Models.Data;
 
 public class RequestData<T> : IRequestData<T>
 {
+    public Error? Error { get; set; }
+
+    public Meta? Meta { get; set; }
     public bool HasError => Error is not null;
 
     public T? Data { get; set; }
-
-    public Error? Error {get; set; }
 
     IError? IRequestData<T>.Error
     {
@@ -23,8 +24,6 @@ public class RequestData<T> : IRequestData<T>
             Error = error;
         }
     }
-
-    public Meta? Meta { get; set; }
 
     IMeta? IRequestData<T>.Meta
     {

@@ -3,13 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:vm="clr-namespace:SpaceTraders.ViewModels"
              xmlns:xamlConstants="clr-namespace:SpaceTraders.XamlConstants"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance vm:StartViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300">
+             d:DesignHeight="800"
+             d:DesignWidth="=1500">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding InitializeCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -47,7 +53,7 @@
             <Expander Header="About" IsExpanded="True">
                 <Grid Margin="14,0">
                     <TextBlock TextWrapping="WrapWithOverflow"
-                               Text="{Binding Description}" />
+                               Text="{Binding Description}"/>
                 </Grid>
             </Expander>
 

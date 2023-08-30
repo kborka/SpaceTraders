@@ -1,13 +1,13 @@
-﻿using SpaceTraders.Api.Enums;
-using SpaceTraders.Api.Models.Interfaces.Waypoints;
+﻿using SpaceTraders.Api.Models.Core;
+using SpaceTraders.Core.Interfaces.Waypoints;
 
 namespace SpaceTraders.Api.Models.Waypoints;
 
 public class WaypointTrait : SymbolModelBase, IWaypointTrait
 {
-    public WaypointTraitType Type { get; set; }
-
+    /// <inheritdoc />
     public string Name { get; set; } = null!;
 
+    /// <inheritdoc />
     public string Description { get; set; } = null!;
 }

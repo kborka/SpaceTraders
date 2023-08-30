@@ -1,34 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using SpaceTraders.Api.Enums;
+using System.Windows.Input;
 using SpaceTraders.Api.Models.Game;
-using SpaceTraders.Api.Models.Interfaces.Game;
 using SpaceTraders.Api.Services.Interfaces;
 using SpaceTraders.ComponentModel;
 using SpaceTraders.ComponentModel.Interfaces;
+using SpaceTraders.Core.Interfaces.Game;
+using SpaceTraders.Interfaces;
+using SpaceTraders.ViewModels.Factions;
 
 namespace SpaceTraders.ViewModels.Dialogs;
 
-public class RegistrationDialogViewModel : ValidatableBindableBase
+public class RegistrationDialogViewModel : ValidatableBindableBase, IAsyncLoadingViewModel
 {
     private readonly IGameService _gameService;
+    private readonly IFactionService _factionService;
+    private bool _dataLoaded;
     private string? _agentSymbol;
-    private StartingFactionType _faction;
+    private FactionViewModel? _selectedFaction;
     private string? _email;
     private IGameRegistrationResponse? _response;
 
-    public RegistrationDialogViewModel(IGameService gameService)
+    public RegistrationDialogViewModel(IGameService gameService, IFactionService factionService)
     {
         _gameService = gameService;
+        _factionService = factionService;
         RegisterAgentCommand = new AsyncCommand(RegisterAgent, CanRegisterAgent);
-        StartingFactions = Enum.GetValues<StartingFactionType>();
-        _faction = StartingFactionType.Cosmic;
+        InitializeCommand = new AsyncCommand(Initialize);
+        StartingFactions = new ObservableCollection<FactionViewModel>();
     }
 
+    public event EventHandler? InitializationCompleted;
+
+    /// <inheritdoc/>
+    public ICommand InitializeCommand { get; }
+
     public IAsyncCommand RegisterAgentCommand { get; }
+
+    /// <inheritdoc/>
+    public bool DataLoaded
+    {
+        get => _dataLoaded;
+        private set => SetProperty(ref _dataLoaded, value);
+    }
 
     public string? AgentSymbol
     {
@@ -45,12 +62,12 @@ public class RegistrationDialogViewModel : ValidatableBindableBase
         }
     }
 
-    public IEnumerable<StartingFactionType> StartingFactions { get; }
+    public ObservableCollection<FactionViewModel> StartingFactions { get; }
 
-    public StartingFactionType Faction
+    public FactionViewModel? SelectedFaction
     {
-        get => _faction;
-        set => SetProperty(ref _faction, value);
+        get => _selectedFaction;
+        set => SetProperty(ref _selectedFaction, value);
     }
 
     public string? Email
@@ -74,9 +91,9 @@ public class RegistrationDialogViewModel : ValidatableBindableBase
     {
         var registration = new GameRegistrationRequest
         {
-            Symbol = AgentSymbol,
-            Faction = Faction,
-            Email = Email
+            Symbol = AgentSymbol!,
+            Faction = SelectedFaction!.Symbol,
+            Email = Email!
         };
 
         var response = await _gameService.RegisterAgent(registration);
@@ -100,6 +117,7 @@ public class RegistrationDialogViewModel : ValidatableBindableBase
     {
         if (_agentSymbol is null) return false;
         if (_email is null) return false;
+        if (!_selectedFaction?.IsRecruiting ?? true) return false;
         return !HasErrors;
     }
 
@@ -120,5 +138,18 @@ public class RegistrationDialogViewModel : ValidatableBindableBase
         {
             AddError(nameof(Email), "Invalid email address format.");
         }
+    }
+
+    private async Task Initialize()
+    {
+        var factions = await _factionService.GetFactions();
+        foreach (var faction in factions)
+        {
+            StartingFactions.Add(new FactionViewModel(faction));
+        }
+
+        SelectedFaction = StartingFactions.First();
+
+        DataLoaded = true;
     }
 }

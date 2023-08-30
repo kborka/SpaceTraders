@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Prism.Mvvm;
-using SpaceTraders.Api.Models.Interfaces.Game;
+using SpaceTraders.Core.Interfaces.Game;
 
 namespace SpaceTraders.ViewModels.Game;
 

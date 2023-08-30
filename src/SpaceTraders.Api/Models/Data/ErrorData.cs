@@ -1,4 +1,4 @@
-﻿using SpaceTraders.Api.Models.Interfaces.Data;
+﻿using SpaceTraders.Core.Interfaces.Data;
 
 namespace SpaceTraders.Api.Models.Data;
 
